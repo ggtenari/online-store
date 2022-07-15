@@ -12,6 +12,7 @@ import DoneRecipesPage from '../pages/DoneRecipesPage';
 import FavoriteRecipesPage from '../pages/FavoriteRecipesPage';
 
 const AppRoutes = () => (
+
   <Switch>
     <Route exact path="/" component={ LoginPage } />
     <Route exact path="/foods" component={ FoodsPage } />
@@ -32,6 +33,7 @@ const AppRoutes = () => (
     <Route exact path="/done-recipes" component={ DoneRecipesPage } />
     <Route exact path="/favorite-recipes" component={ FavoriteRecipesPage } />
   </Switch>
+
 );
 
 export default AppRoutes;
