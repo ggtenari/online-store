@@ -1,9 +1,12 @@
 import React from 'react';
+import Header from '../components/Header';
 
-const DrinksPage = () => (
-  <div>
-    PAGINA DO DRINKSPAGE
-  </div>
-);
+function DrinksPage() {
+  return (
+    <div>
+      <Header title="Drinks" searchIconOnOff />
+    </div>
+  );
+}
 
 export default DrinksPage;
