@@ -7,7 +7,7 @@ import RecipeFoodPage from '../pages/RecipeFoodPage';
 import RecipeDrinkPage from '../pages/RecipeDrinkPage';
 import ProgressRecipeFoodPage from '../pages/ProgressRecipeFoodPage';
 import ProgressRecipeDrinkPage from '../pages/ProgressRecipeDrinkPage';
-import ProfilePage from '../pages/ProfilePage';
+import Profile from '../pages/Profile';
 import DoneRecipesPage from '../pages/DoneRecipesPage';
 import FavoriteRecipesPage from '../pages/FavoriteRecipesPage';
 
@@ -28,7 +28,7 @@ const AppRoutes = () => (
       path="/drinks/{id-da-receita}/in-progress"
       component={ ProgressRecipeDrinkPage }
     />
-    <Route exact path="/profile" component={ ProfilePage } />
+    <Route exact path="/profile" component={ Profile } />
     <Route exact path="/done-recipes" component={ DoneRecipesPage } />
     <Route exact path="/favorite-recipes" component={ FavoriteRecipesPage } />
   </Switch>
