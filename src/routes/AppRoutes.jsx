@@ -1,6 +1,6 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
-import LoginPage from '../pages/LoginPage';
+import { Route, BrowserRouter } from 'react-router-dom';
+import LoginPage from '../pages/Login';
 import FoodsPage from '../pages/FoodsPage';
 import DrinksPage from '../pages/DrinksPage';
 import RecipeFoodPage from '../pages/RecipeFoodPage';
@@ -12,7 +12,7 @@ import DoneRecipesPage from '../pages/DoneRecipesPage';
 import FavoriteRecipesPage from '../pages/FavoriteRecipesPage';
 
 const AppRoutes = () => (
-  <Switch>
+  <BrowserRouter>
     <Route exact path="/" component={ LoginPage } />
     <Route exact path="/foods" component={ FoodsPage } />
     <Route exact path="/drinks" component={ DrinksPage } />
@@ -31,7 +31,7 @@ const AppRoutes = () => (
     <Route exact path="/profile" component={ ProfilePage } />
     <Route exact path="/done-recipes" component={ DoneRecipesPage } />
     <Route exact path="/favorite-recipes" component={ FavoriteRecipesPage } />
-  </Switch>
+  </BrowserRouter>
 );
 
 export default AppRoutes;
