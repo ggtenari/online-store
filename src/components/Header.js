@@ -5,40 +5,40 @@ import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
 
-function Header({title, searchIconOnOff}) {
-    const history = useHistory();
-    const [showSearchBar, setShowSearchBar] = useState(false);
-    const searchBarOnOff = () => {
-        if (showSearchBar) {
-          setShowSearchBar(false);
-        } else {
-          setShowSearchBar(true);
-        }
-      };
-    return (
-      <header>
-        <h1 data-testid="page-title">{title}</h1>
-            <button onClick={ () => history.push('/profile') }>
-                Enter
+function Header({ title, searchIconOnOff }) {
+  const history = useHistory();
+  const [showSearchBar, setShowSearchBar] = useState(false);
+  const searchBarOnOff = () => {
+    if (showSearchBar) {
+      setShowSearchBar(false);
+    } else {
+      setShowSearchBar(true);
+    }
+  };
+  return (
+    <header>
+      <h1 data-testid="page-title">{title}</h1>
+      <button type="button" onClick={ () => history.push('/profile') }>
+        Enter
+        <img
+          src={ profileIcon }
+          alt="Profile icon"
+          data-testid="profile-top-btn"
+        />
+      </button>
+      {searchIconOnOff && (
+        <button type="button" onClick={ searchBarOnOff }>
           <img
-            src={ profileIcon }
-            alt="Profile icon"
-            data-testid="profile-top-btn"
+            src={ searchIcon }
+            alt="Search icon"
+            data-testid="search-top-btn"
           />
-          </button>
-          {searchIconOnOff && (
-          <button type="button" onClick={ searchBarOnOff }>
-            <img
-                src={ searchIcon }
-                alt="Search icon"
-                data-testid="search-top-btn"
-            />  
-          </button>
-          )}                            
-          {showSearchBar && <SearchBar />}  
-      </header>
-    );
-  }
+        </button>
+      )}
+      {showSearchBar && <SearchBar />}
+    </header>
+  );
+}
 
 Header.propTypes = {
   title: PropTypes.string.isRequired,
