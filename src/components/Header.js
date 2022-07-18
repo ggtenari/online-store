@@ -35,7 +35,7 @@ function Header({ title, searchIconOnOff }) {
           />
         </button>
       )}
-      {showSearchBar && <SearchBar />}
+      { showSearchBar && <SearchBar /> }
     </header>
   );
 }
