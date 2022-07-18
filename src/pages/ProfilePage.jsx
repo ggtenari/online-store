@@ -1,9 +1,12 @@
 import React from 'react';
+import Header from '../components/Header';
 
-const ProfilePage = () => (
-  <div>
-    PAGINA DO ProfilePage
-  </div>
-);
+function ProfilePage() {
+  return (
+    <div>
+      <Header title="Profile" />
+    </div>
+  );
+}
 
 export default ProfilePage;

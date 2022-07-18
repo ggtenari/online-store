@@ -1,9 +1,11 @@
 import React from 'react';
+import Header from '../components/Header';
 
-const FavoriteRecipesPage = () => (
-  <div>
-    PAGINA DO FavoriteRecipesPage
-  </div>
-);
-
+function FavoriteRecipesPage() {
+  return (
+    <div>
+      <Header title="Favorite Recipes" />
+    </div>
+  );
+}
 export default FavoriteRecipesPage;
