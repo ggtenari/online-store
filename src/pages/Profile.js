@@ -1,11 +1,21 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
-export default function Profile() {
+const Profile = () => {
   const history = useHistory();
-  const loginUser = JASON.parse(localStorage.getItem('user'));
+  const [email, setEmail] = useState();
+  const loginUser = () => {
+    const response = localStorage.getItem('user');
+    if (response) {
+      console.log(response);
+      return JSON.parse(response);
+    }
+    return 'Email not found';
+  };
+  useEffect(() => { setEmail(loginUser().email); }, []);
   const logoutBtnClick = () => {
     localStorage.clear();
     history.push('/');
@@ -13,12 +23,16 @@ export default function Profile() {
 
   return (
     <>
-      <>
+      <div>
         <Header title="Profile" history={ history } />
         <Footer />
-      </>
+        <div data-testid="profile-email">
+          { email }
+        </div>
+
+      </div>
+
       <div>
-        <p data-testid="profile-email">{ loginUser?.email }</p>
         <button
           type="button"
           data-testid="profile-done-btn"
@@ -43,4 +57,10 @@ export default function Profile() {
       </div>
     </>
   );
-}
+};
+
+Profile.prototype = {
+  history: PropTypes.shape().isRequired,
+};
+
+export default Profile;
