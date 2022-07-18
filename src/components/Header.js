@@ -7,7 +7,8 @@ import SearchBar from './SearchBar';
 
 function Header({ title, searchIconOnOff }) {
   const history = useHistory();
-  const [showSearchBar, setShowSearchBar] = useState(false);
+  const [showSearchBar, setShowSearchBar] = useState(true);
+
   const searchBarOnOff = () => {
     if (showSearchBar) {
       setShowSearchBar(false);
@@ -15,6 +16,7 @@ function Header({ title, searchIconOnOff }) {
       setShowSearchBar(true);
     }
   };
+
   return (
     <header>
       <h1 data-testid="page-title">{title}</h1>
@@ -27,13 +29,14 @@ function Header({ title, searchIconOnOff }) {
         />
       </button>
       {searchIconOnOff && (
-        <button type="button" onClick={ searchBarOnOff }>
-          <img
-            src={ searchIcon }
-            alt="Search icon"
-            data-testid="search-top-btn"
-          />
-        </button>
+        <input
+          data-testid="search-top-btn"
+          type="image"
+          src={ searchIcon }
+          onClick={ searchBarOnOff }
+          alt="Search icon"
+        />
+
       )}
       { showSearchBar && <SearchBar /> }
     </header>

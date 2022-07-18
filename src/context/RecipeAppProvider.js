@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import ContextRecipeApp from './ContextRecipeApp';
 
 function RecipeAppProvider({ children }) {
@@ -10,6 +10,7 @@ function RecipeAppProvider({ children }) {
   const [url, setUrl] = useState({ foods: '', drinks: '' });
   const [foods, setFoods] = useState([]);
   const [drinks, setDrinks] = useState([]);
+  const location = useLocation();
 
   const history = useHistory();
 
@@ -26,18 +27,18 @@ function RecipeAppProvider({ children }) {
     setFoods,
     drinks,
     setDrinks,
+    location,
   };
 
   useEffect(() => {
     if (foods.length === 1) {
-      console.log(foods);
-      history.push(`/foods/${foods[0].idMeal}`);
+      history.go(`/foods/${foods[0].idMeal}`);
       return;
     }
     if (drinks.length === 1) {
-      history.push(`/drinks/${drinks[0].idDrink}`);
+      history.go(`/drinks/${drinks[0].idDrink}`);
     }
-  });
+  }, [foods, drinks]);
 
   return (
     <ContextRecipeApp.Provider value={ contextValue }>

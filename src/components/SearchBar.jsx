@@ -34,7 +34,8 @@ const SearchBar = () => {
     }
   }, [valueInputRadio, searchInput]);
 
-  const onClick = async () => {
+  const onClick = async (event) => {
+    event.preventDefault();
     const foods = await fetchAPI(url.foods);
     const drinks = await fetchAPI(url.drinks);
     setFoods(foods.meals);
