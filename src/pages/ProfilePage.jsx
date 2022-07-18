@@ -1,12 +1,13 @@
 import React from 'react';
+import Footer from '../components/Footer';
 import Header from '../components/Header';
 
-function ProfilePage() {
-  return (
-    <div>
-      <Header title="Profile" />
-    </div>
-  );
-}
+const ProfilePage = () => (
+  <div>
+    <Header title="Profile" />
+    PAGINA DO ProfilePage
+    <Footer />
+  </div>
+);
 
 export default ProfilePage;
