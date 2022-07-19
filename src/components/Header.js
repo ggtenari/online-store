@@ -7,7 +7,7 @@ import SearchBar from './SearchBar';
 
 function Header({ title, searchIconOnOff }) {
   const history = useHistory();
-  const [showSearchBar, setShowSearchBar] = useState(true);
+  const [showSearchBar, setShowSearchBar] = useState(false);
 
   const searchBarOnOff = () => {
     if (showSearchBar) {

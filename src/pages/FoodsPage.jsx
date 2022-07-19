@@ -1,4 +1,5 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import RecipeCard from '../components/RecipesCard';
@@ -11,7 +12,10 @@ const FoodsPage = () => {
     <div>
       <Header title="Foods" searchIconOnOff />
       PAGINA DO FOODSPAGE
-      {foods && <RecipeCard /> }
+      {foods !== null
+        && foods.length === 1
+        && <Redirect to={ `/foods/${foods[0].idMeal}` } />}
+      {foods ? <RecipeCard /> : alert('Sorry, we haven\'t found any recipes for these filters.')}
       <Footer />
     </div>
   );

@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import { useRecipeApp } from '../context/RecipeAppProvider';
 
 const RecipeCard = () => {
@@ -22,25 +23,29 @@ const RecipeCard = () => {
       { pathname === '/foods'
         && Object(filterRecipes(foods)).map((food, index) => (
           <div key={ food.strMeal }>
-            <img
-              data-testid={ `${index}-card-img` }
-              src={ food.strMealThumb }
-              alt={ `imagem da receita ${index}` }
-              style={ style }
-            />
-            <div data-testid={ `${index}-card-name` }>{ food.strMeal }</div>
+            <Link to={ `/foods/${food.idMeal}` }>
+              <img
+                data-testid={ `${index}-card-img` }
+                src={ food.strMealThumb }
+                alt={ `imagem da receita ${index}` }
+                style={ style }
+              />
+              <div data-testid={ `${index}-card-name` }>{ food.strMeal }</div>
+            </Link>
           </div>
         ))}
       { pathname === '/drinks'
         && Object(filterRecipes(drinks)).map((drink, index) => (
           <div key={ drink.strDrink }>
-            <img
-              data-testid={ `${index}-card-img` }
-              src={ drink.strDrinkThumb }
-              alt={ `imagem da receita ${index}` }
-              style={ style }
-            />
-            <div key={ drink.strDrink }>{ drink.strDrink }</div>
+            <Link to={ `/drinks/${drink.idDrink}` }>
+              <img
+                data-testid={ `${index}-card-img` }
+                src={ drink.strDrinkThumb }
+                alt={ `imagem da receita ${index}` }
+                style={ style }
+              />
+              <div data-testid={ `${index}-card-name` }>{ drink.strDrink }</div>
+            </Link>
           </div>
         ))}
     </div>

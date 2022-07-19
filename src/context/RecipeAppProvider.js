@@ -28,17 +28,18 @@ function RecipeAppProvider({ children }) {
     drinks,
     setDrinks,
     location,
+    history,
   };
 
-  useEffect(() => {
-    if (foods.length === 1) {
-      history.go(`/foods/${foods[0].idMeal}`);
-      return;
-    }
-    if (drinks.length === 1) {
-      history.go(`/drinks/${drinks[0].idDrink}`);
-    }
-  }, [foods, drinks]);
+  // useEffect(() => {
+  //   if (foods.length === 1) {
+  //     history.push(`/foods/${foods[0].idMeal}`);
+  //     return;
+  //   }
+  //   if (drinks.length === 1) {
+  //     history.go(`/drinks/${drinks[0].idDrink}`);
+  //   }
+  // }, [foods, drinks]);
 
   return (
     <ContextRecipeApp.Provider value={ contextValue }>

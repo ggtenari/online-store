@@ -9,8 +9,11 @@ const SearchBar = () => {
     setValueInputRadio,
     url,
     setUrl,
+    foods,
     setFoods,
-    setDrinks } = useRecipeApp();
+    drinks,
+    setDrinks,
+    location: { pathname } } = useRecipeApp();
 
   useEffect(() => {
     if (valueInputRadio === 'ingredientChecked') {
@@ -34,12 +37,17 @@ const SearchBar = () => {
     }
   }, [valueInputRadio, searchInput]);
 
-  const onClick = async (event) => {
-    event.preventDefault();
-    const foods = await fetchAPI(url.foods);
-    const drinks = await fetchAPI(url.drinks);
-    setFoods(foods.meals);
-    setDrinks(drinks.drinks);
+  const onClick = async () => {
+    const recipesFoods = await fetchAPI(url.foods);
+    const recipesDrinks = await fetchAPI(url.drinks);
+    if (pathname === '/foods' && !recipesFoods) {
+      alert('Sorry, we haven\'t found any recipes for these filters.');
+    }
+    if (pathname === '/drinks' && !recipesDrinks) {
+      alert('Sorry, we haven\'t found any recipes for these filters.');
+    }
+    setFoods(recipesFoods.meals);
+    setDrinks(recipesDrinks.drinks);
   };
 
   return (
