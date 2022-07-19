@@ -12,7 +12,7 @@ const RecipeCard = () => {
   const filterRecipes = (recipes) => {
     const maxCard = 12;
     let cards = recipes;
-    if (recipes.length > maxCard) cards = recipes.slice(0, maxCard);
+    if (recipes && recipes.length > maxCard) cards = recipes.slice(0, maxCard);
     return cards;
   };
 
@@ -22,7 +22,7 @@ const RecipeCard = () => {
       <div>Receita</div>
       { pathname === '/foods'
         && filterRecipes(foods).map((food, index) => (
-          <div key={ food.strMeal }>
+          <div data-testid={ `${index}-recipe-card` } key={ food.strMeal }>
             <Link to={ `/foods/${food.idMeal}` }>
               <img
                 data-testid={ `${index}-card-img` }
@@ -36,7 +36,7 @@ const RecipeCard = () => {
         ))}
       { pathname === '/drinks'
         && filterRecipes(drinks).map((drink, index) => (
-          <div key={ drink.strDrink }>
+          <div data-testid={ `${index}-recipe-card` } key={ drink.strDrink }>
             <Link to={ `/drinks/${drink.idDrink}` }>
               <img
                 data-testid={ `${index}-card-img` }
