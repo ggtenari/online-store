@@ -15,7 +15,8 @@ function DrinksPage() {
       {drinks !== null
         && drinks.length === 1
         && <Redirect to={ `/drinks/${drinks[0].idDrink}` } />}
-      {drinks ? <RecipeCard /> : alert('Sorry, we haven\'t found any recipes for these filters.')}
+      {drinks ? <RecipeCard />
+        : alert('Sorry, we haven\'t found any recipes for these filters.')}
       <Footer />
     </div>
   );

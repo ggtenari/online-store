@@ -15,7 +15,8 @@ const FoodsPage = () => {
       {foods !== null
         && foods.length === 1
         && <Redirect to={ `/foods/${foods[0].idMeal}` } />}
-      {foods ? <RecipeCard /> : alert('Sorry, we haven\'t found any recipes for these filters.')}
+      {foods ? <RecipeCard />
+        : alert('Sorry, we haven\'t found any recipes for these filters.')}
       <Footer />
     </div>
   );

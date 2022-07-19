@@ -8,6 +8,7 @@ const RecipeDrinkPage = () => {
   return (
     <div>
       PAGINA DO RecipeDrinkPage
+      {console.log(drinks)}
       <RecipeCard />
     </div>
   );
