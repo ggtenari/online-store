@@ -9,9 +9,7 @@ const SearchBar = () => {
     setValueInputRadio,
     url,
     setUrl,
-    foods,
     setFoods,
-    drinks,
     setDrinks,
     location: { pathname },
     history } = useRecipeApp();
