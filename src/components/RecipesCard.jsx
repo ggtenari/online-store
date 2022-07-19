@@ -21,7 +21,7 @@ const RecipeCard = () => {
       Card de Receita
       <div>Receita</div>
       { pathname === '/foods'
-        && Object(filterRecipes(foods)).map((food, index) => (
+        && filterRecipes(foods).map((food, index) => (
           <div key={ food.strMeal }>
             <Link to={ `/foods/${food.idMeal}` }>
               <img
@@ -35,7 +35,7 @@ const RecipeCard = () => {
           </div>
         ))}
       { pathname === '/drinks'
-        && Object(filterRecipes(drinks)).map((drink, index) => (
+        && filterRecipes(drinks).map((drink, index) => (
           <div key={ drink.strDrink }>
             <Link to={ `/drinks/${drink.idDrink}` }>
               <img

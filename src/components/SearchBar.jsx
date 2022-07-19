@@ -13,7 +13,8 @@ const SearchBar = () => {
     setFoods,
     drinks,
     setDrinks,
-    location: { pathname } } = useRecipeApp();
+    location: { pathname },
+    history } = useRecipeApp();
 
   useEffect(() => {
     if (valueInputRadio === 'ingredientChecked') {
@@ -40,14 +41,15 @@ const SearchBar = () => {
   const onClick = async () => {
     const recipesFoods = await fetchAPI(url.foods);
     const recipesDrinks = await fetchAPI(url.drinks);
-    if (pathname === '/foods' && !recipesFoods) {
-      alert('Sorry, we haven\'t found any recipes for these filters.');
-    }
-    if (pathname === '/drinks' && !recipesDrinks) {
-      alert('Sorry, we haven\'t found any recipes for these filters.');
-    }
     setFoods(recipesFoods.meals);
     setDrinks(recipesDrinks.drinks);
+    console.log(typeof (recipesFoods.meals.length));
+    if (pathname === '/foods' && recipesFoods.meals.length === 1) {
+      history.push(`/foods/${recipesFoods.meals[0].idMeal}`);
+    }
+    if (pathname === '/drinks' && recipesDrinks.drinks.length === 1) {
+      history.push(`/drinks/${recipesDrinks.drinks[0].idDrink}`);
+    }
   };
 
   return (
