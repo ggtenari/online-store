@@ -9,7 +9,6 @@ const RecipeDrinkPage = () => {
     <div>
       PAGINA DO RecipeDrinkPage
       {console.log(drinks)}
-      <RecipeCard />
     </div>
   );
 };

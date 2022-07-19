@@ -42,6 +42,7 @@ const SearchBar = () => {
     if (pathname === '/foods') {
       fetchAPI(url.foods).then((response) => setFoods(response.meals));
     } if (pathname === '/drinks') {
+      console.log(url.drinks);
       fetchAPI(url.drinks).then((response) => setDrinks(response.drinks));
     }
     // console.log(recipesDrinks);
