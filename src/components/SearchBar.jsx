@@ -9,7 +9,9 @@ const SearchBar = () => {
     setValueInputRadio,
     url,
     setUrl,
+    foods,
     setFoods,
+    drinks,
     setDrinks,
     location: { pathname },
     history } = useRecipeApp();
@@ -37,16 +39,24 @@ const SearchBar = () => {
   }, [valueInputRadio, searchInput]);
 
   const onClick = async () => {
-    const recipesFoods = await fetchAPI(url.foods);
-    const recipesDrinks = await fetchAPI(url.drinks);
-    setFoods(recipesFoods.meals);
-    setDrinks(recipesDrinks.drinks);
-    console.log(typeof (recipesFoods.meals.length));
-    if (pathname === '/foods' && recipesFoods.meals.length === 1) {
-      history.push(`/foods/${recipesFoods.meals[0].idMeal}`);
+    if (pathname === '/foods') {
+      fetchAPI(url.foods).then((response) => setFoods(response.meals));
+    } if (pathname === '/drinks') {
+      fetchAPI(url.drinks).then((response) => setDrinks(response.drinks));
     }
-    if (pathname === '/drinks' && recipesDrinks.drinks.length === 1) {
-      history.push(`/drinks/${recipesDrinks.drinks[0].idDrink}`);
+    // console.log(recipesDrinks);
+    // if (recipesFoods) {
+    //   setFoods(recipesFoods.meals);
+    // }
+    // if (recipesDrinks) {
+    //   setDrinks(recipesDrinks.drinks);
+    // }
+
+    if (foods && pathname === '/foods' && foods.length === 1) {
+      history.push(`/foods/${foods[0].idMeal}`);
+    }
+    if (drinks && pathname === '/drinks' && drinks.length === 1) {
+      history.push(`/drinks/${drinks[0].idDrink}`);
     }
   };
 
