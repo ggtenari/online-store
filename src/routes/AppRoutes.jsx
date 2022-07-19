@@ -12,20 +12,21 @@ import DoneRecipesPage from '../pages/DoneRecipesPage';
 import FavoriteRecipesPage from '../pages/FavoriteRecipesPage';
 
 const AppRoutes = () => (
+
   <BrowserRouter>
     <Route exact path="/" component={ LoginPage } />
     <Route exact path="/foods" component={ FoodsPage } />
     <Route exact path="/drinks" component={ DrinksPage } />
-    <Route exact path="/foods/{id-da-receita}" component={ RecipeFoodPage } />
-    <Route exact path="/drinks/{id-da-receita}" component={ RecipeDrinkPage } />
+    <Route exact path="/foods/:id" component={ RecipeFoodPage } />
+    <Route exact path="/drinks/:id" component={ RecipeDrinkPage } />
     <Route
       exact
-      path="/foods/{id-da-receita}/in-progress"
+      path="/foods/:id/in-progress"
       component={ ProgressRecipeFoodPage }
     />
     <Route
       exact
-      path="/drinks/{id-da-receita}/in-progress"
+      path="/drinks/:id/in-progress"
       component={ ProgressRecipeDrinkPage }
     />
     <Route exact path="/profile" component={ Profile } />
