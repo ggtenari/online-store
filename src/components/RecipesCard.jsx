@@ -34,8 +34,7 @@ const RecipeCard = ({ page }) => {
           </Link>
         </div>
       ))}
-      { page === 'drinks' && drinks.length > 0
-        && filterRecipes(drinks)?.map((drink, index) => (
+      { page === 'drinks' && filterRecipes(drinks)?.map((drink, index) => (
           <div data-testid={ `${index}-recipe-card` } key={ drink.strDrink }>
             <Link to={ `/drinks/${drink.idDrink}` }>
               <img
