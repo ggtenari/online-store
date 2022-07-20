@@ -11,14 +11,10 @@ const SearchBar = () => {
     setValueInputRadio,
     url,
     setUrl,
-    foods,
     setFoods,
-    drinks,
     setDrinks,
-    location: { pathname },
-    history,
     page,
-    setPage } = useRecipeApp();
+  } = useRecipeApp();
 
   const [redirect, setRedirect] = useState({
     goLink: false,
