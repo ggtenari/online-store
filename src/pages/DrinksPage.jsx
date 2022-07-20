@@ -7,7 +7,7 @@ import RecipeCard from '../components/RecipesCard';
 import { useRecipeApp } from '../context/RecipeAppProvider';
 
 function DrinksPage() {
-  const { drinks, setDrinks } = useRecipeApp();
+  const { setDrinks } = useRecipeApp();
   const [categories, setCategories] = useState();
   const maxIndexDrinks = 12;
   const maxIndexCategories = 5;
@@ -23,12 +23,17 @@ function DrinksPage() {
   const handleCategorie = (name) => {
     fetchAPI(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${name}`).then((response) => setDrinks(response.drinks));
   };
+  const handleOnClickAll = async () => {
+    fetchAPI('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=').then((response) => setDrinks(response.drinks.slice(0, maxIndexDrinks)));
+  };
 
   return (
     <div>
       <h1>PAGINA DO DRINKSPAGE</h1>
+      <Header title="Drinks" searchIconOnOff />
       {categories && categories?.map((categorie) => (
         <button
+          data-testid={`${categorie.strCategory}-category-filter`}
           type="button"
           name={ categorie.strCategory }
           key={ categorie.strCategory }
@@ -36,10 +41,16 @@ function DrinksPage() {
         >
           {categorie.strCategory}
         </button>))}
-      <Header title="Drinks" searchIconOnOff />
-      {drinks !== null
+        <button
+        onClick={ handleOnClickAll }
+        data-testid="All-category-filter"
+        type="button"
+      >
+        All
+      </button>
+      {/* {drinks !== null
         && drinks.length === 1
-        && <Redirect to={ `/drinks/${drinks[0].idDrink}` } />}
+        && <Redirect to={ `/drinks/${drinks[0].idDrink}` } />} */}
       {/* {drinks ?
         : alert('Sorry, we haven\'t found any recipes for these filters.')} */}
       <RecipeCard page="drinks" />

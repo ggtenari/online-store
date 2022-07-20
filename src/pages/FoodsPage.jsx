@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Redirect } from 'react-router-dom';
+// import { Redirect } from 'react-router-dom';
 import fetchAPI from '../helpers/fetchAPI';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
@@ -7,7 +7,7 @@ import RecipeCard from '../components/RecipesCard';
 import { useRecipeApp } from '../context/RecipeAppProvider';
 
 const FoodsPage = () => {
-  const { foods, setFoods } = useRecipeApp();
+  const { setFoods } = useRecipeApp();
   const [categories, setCategories] = useState();
   const maxIndexFoods = 12;
   const maxIndexCategories = 5;
@@ -19,13 +19,16 @@ const FoodsPage = () => {
   useEffect(() => {
     apiRequests();
   }, []);
-  useEffect(() => {
-    console.log(categories);
-    console.log(foods);
-  }, [foods, categories]);
+  // useEffect(() => {
+  //   console.log(categories);
+  //   console.log(foods);
+  // }, [foods, categories]);
 
   const handleCategorie = async (name) => {
     await fetchAPI(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${name}`).then((response) => setFoods(response.meals));
+  };
+  const handleOnClickAll = async () => {
+    fetchAPI('https://www.themealdb.com/api/json/v1/1/search.php?s=').then((response) => setFoods(response.meals.slice(0, maxIndexFoods)));
   };
 
   return (
@@ -33,6 +36,7 @@ const FoodsPage = () => {
       <Header title="Foods" searchIconOnOff />
       {categories && categories.map((categorie) => (
         <button
+          data-testid={ `${categorie.strCategory}-category-filter` }
           type="button"
           name={ categorie.strCategory }
           key={ categorie.strCategory }
@@ -41,9 +45,16 @@ const FoodsPage = () => {
           {categorie.strCategory}
         </button>
       ))}
-      {foods !== null
+      <button
+        onClick={ handleOnClickAll }
+        data-testid="All-category-filter"
+        type="button"
+      >
+        All
+      </button>
+      {/* {foods !== null
         && foods.length === 1
-        && <Redirect to={ `/foods/${foods[0].idMeal}` } />}
+        && <Redirect to={ `/foods/${foods[0].idMeal}` } />} */}
       {/* {foods ? <RecipeCard />
         : alert('Sorry, we haven\'t found any recipes for these filters.')} */}
       <RecipeCard page="foods" />
