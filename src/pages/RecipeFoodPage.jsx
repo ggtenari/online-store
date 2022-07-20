@@ -7,8 +7,8 @@ const RecipeFoodPage = () => {
 
   return (
     <div>
-      PAGINA DO RecipeFoodPage
-      {foods && <RecipeCard /> }
+
+      {foods && <h1>PAGINA DO RecipeFoodPage</h1> }
     </div>
   );
 };

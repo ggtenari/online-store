@@ -1,5 +1,5 @@
 import React from 'react';
-import RecipeCard from '../components/RecipesCard';
+// import RecipeCard from '../components/RecipesCard';
 import { useRecipeApp } from '../context/RecipeAppProvider';
 
 const RecipeDrinkPage = () => {
@@ -9,7 +9,6 @@ const RecipeDrinkPage = () => {
     <div>
       PAGINA DO RecipeDrinkPage
       {console.log(drinks)}
-      <RecipeCard />
     </div>
   );
 };
