@@ -8,6 +8,7 @@ import fetchDrinks from '../helpers/fetchDrinks';
 
 function DrinksPage() {
   const { setDrinks, setPage } = useRecipeApp();
+  const [toggle, setToggle] = useState('')
   const [categories, setCategories] = useState();
   const maxIndexDrinks = 12;
   const maxIndexCategories = 5;
@@ -21,11 +22,19 @@ function DrinksPage() {
     setPage('drinks');
   }, []);
 
-  const handleCategorie = (name) => {
-    fetchDrinks(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${name}`).then((response) => setDrinks(response.drinks));
-  };
   const handleOnClickAll = async () => {
     fetchDrinks('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=').then((response) => setDrinks(response.drinks.slice(0, maxIndexDrinks)));
+    setToggle('')
+  };
+  const handleCategorie = (name) => {
+    if (toggle === name) {
+      console.log('if');
+      handleOnClickAll() 
+    } else {
+      console.log('else')
+      setToggle(name)
+      fetchDrinks(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${name}`).then((response) => setDrinks(response.drinks))
+    }
   };
 
   return (
