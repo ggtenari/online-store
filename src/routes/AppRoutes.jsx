@@ -9,7 +9,7 @@ import ProgressRecipeFoodPage from '../pages/ProgressRecipeFoodPage';
 import ProgressRecipeDrinkPage from '../pages/ProgressRecipeDrinkPage';
 import Profile from '../pages/Profile';
 import DoneRecipesPage from '../pages/DoneRecipesPage';
-import FavoriteRecipesPage from '../pages/FavoriteRecipesPage';
+import FavoriteRecipes from '../pages/FavoriteRecipes';
 
 const AppRoutes = () => (
 
@@ -31,7 +31,7 @@ const AppRoutes = () => (
     />
     <Route exact path="/profile" component={ Profile } />
     <Route exact path="/done-recipes" component={ DoneRecipesPage } />
-    <Route exact path="/favorite-recipes" component={ FavoriteRecipesPage } />
+    <Route exact path="/favorite-recipes" component={ FavoriteRecipes } />
   </BrowserRouter>
 );
 
