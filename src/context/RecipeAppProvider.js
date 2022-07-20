@@ -10,6 +10,7 @@ function RecipeAppProvider({ children }) {
   const [url, setUrl] = useState({ foods: '', drinks: '' });
   const [foods, setFoods] = useState([]);
   const [drinks, setDrinks] = useState([]);
+  const [page, setPage] = useState('foods');
   const location = useLocation();
 
   const history = useHistory();
@@ -27,6 +28,8 @@ function RecipeAppProvider({ children }) {
     setFoods,
     drinks,
     setDrinks,
+    page,
+    setPage,
     location,
     history,
   };
