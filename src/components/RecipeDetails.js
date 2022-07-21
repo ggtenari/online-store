@@ -69,7 +69,7 @@ const RecipeDetails = (props) => {
               <div>
                 <h5>Receitas recomendadas</h5>
                 <div>
-                  {recomendeds && filterRecipes(recomendeds)?.map((recomended, index) => (
+                  {recomendeds && filterRecipes(recomendeds).map((recomended, index) => (
                     <div data-testid={`${index}-recomendation-card`} key={index}>
                       <Link to={`/drinks/${recomended.idDrink}`}>
                         <img
@@ -115,7 +115,7 @@ const RecipeDetails = (props) => {
                 <div>
                   <h5>Receitas recomendadas</h5>
                   <div>
-                    {recomendeds && filterRecipes(recomendeds)?.map((recomended, index) => (
+                    {recomendeds && filterRecipes(recomendeds).map((recomended, index) => (
                     <div data-testid={ `${index}-recomendation-card` } key={ index }>
                       <Link to={ `/foods/${recomended.idMeal}` }>
                         <img
