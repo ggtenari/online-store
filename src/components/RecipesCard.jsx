@@ -32,6 +32,7 @@ const RecipeCard = ({ page }) => {
             />
             <div data-testid={ `${index}-card-name` }>{ food.strMeal }</div>
           </Link>
+          <FavoriteButton testid='' objRecipe={food} typeRecipes='foods'/>
         </div>
       ))}
       { page === 'drinks' && filterRecipes(drinks)?.map((drink, index) => (
