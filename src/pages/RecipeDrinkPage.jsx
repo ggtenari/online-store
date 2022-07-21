@@ -25,7 +25,12 @@ const RecipeDrinkPage = ({ match: { params: { id } } }) => {
 
   return (
     <div>
-      <RecipeDetails ingredients={ ingredients } measures={ measures } recomendeds={ recomendedFoods } />
+      <RecipeDetails
+        id={ id }
+        ingredients={ ingredients }
+        measures={ measures }
+        recomendeds={ recomendedFoods }
+      />
     </div>
   );
 };

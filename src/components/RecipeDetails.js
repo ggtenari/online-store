@@ -1,9 +1,14 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Redirect } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { useRecipeApp } from '../context/RecipeAppProvider';
+import StartRecipe from './StartRecipe'
+
 
 const RecipeDetails = (props) => {
-  const { ingredients, measures, recomendeds } = props;
+  const { ingredients, measures, recomendeds, id } = props;
+  console.log(id);
+  const [redirect, setRedirect] = useState({goLink: false, link: ''})
   const { history, details, page } = useRecipeApp();
 
   const style = {
@@ -16,6 +21,10 @@ const RecipeDetails = (props) => {
   //   console.log(details);
   //   console.log(props);
   // }, []);
+  
+  const setLink = (pagina) => {
+    setRedirect({goLink: true, link: `/${pagina}/${id}/in-progress`})
+  }
 
   const filterRecipes = (recipes) => {
     const maxCard = 6;
@@ -23,6 +32,11 @@ const RecipeDetails = (props) => {
     if (recipes && recipes.length > maxCard) cards = recipes.slice(0, maxCard);
     return cards;
   };
+
+  const handleStartRecipe = () => {
+
+  }
+
 
   return (
     <div>
@@ -72,6 +86,7 @@ const RecipeDetails = (props) => {
                   ))}
                 </div>
               </div>
+              <button type="button" onClick={() => setLink('foods')} className="startRecipe">Start Recipe</button>
             </div>
           )
       }
@@ -117,9 +132,11 @@ const RecipeDetails = (props) => {
                   ))}
                   </div>
                 </div>
+                <button type="button" onClick={() => setLink('drinks')} className="startRecipe">Start Recipe</button>
               </div>
             )
       }
+      {redirect.goLink && <Redirect to={ redirect.link }></Redirect>}
     </div>
   );
 };
