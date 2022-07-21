@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
-function FavoriteButton({ testid }) {
+function FavoriteButton() {
   const [isfavorite, setIsFavorite] = useState(false);
   const FAVORITE_RECIPES = 'favoriteRecipes';
   if (!JSON.parse(localStorage.getItem(FAVORITE_RECIPES))) {
@@ -14,13 +14,13 @@ function FavoriteButton({ testid }) {
   const setFavoriteRecipes = (favorite) => localStorage
     .setItem(FAVORITE_RECIPES, JSON.stringify(favorite));
 
-  const copyToClipboard = () => {
+  const handleOnClick = () => {
 
   };
   return (
     <input
-      data-testid={ testid }
-      onClick={ copyToClipboard }
+      // data-testid={ testid }
+      onClick={ handleOnClick }
       type="image"
       src={ isfavorite ? blackHeartIcon : whiteHeartIcon }
       alt="Favotite icon"
