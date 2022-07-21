@@ -11,6 +11,7 @@ function RecipeAppProvider({ children }) {
   const [foods, setFoods] = useState([]);
   const [drinks, setDrinks] = useState([]);
   const [page, setPage] = useState('foods');
+  const [details, setDetails] = useState();
   const location = useLocation();
 
   const history = useHistory();
@@ -32,6 +33,8 @@ function RecipeAppProvider({ children }) {
     setPage,
     location,
     history,
+    details,
+    setDetails,
   };
 
   // useEffect(() => {

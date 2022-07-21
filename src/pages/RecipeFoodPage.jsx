@@ -1,21 +1,31 @@
-import React, { useEffect } from 'react';
-import RecipeDetais from '../components/RecipeDetails';
+import React, { useEffect, useState } from 'react';
+import RecipeDetails from '../components/RecipeDetails';
 import { useRecipeApp } from '../context/RecipeAppProvider';
-import fetchDetails from '../helpers/fetchDetails';
+import fetchDetailsFood from '../helpers/fetchDetailsFood';
+import fetchRecomendedDrinks from '../helpers/fetchRecomendedDrinks';
 
 const RecipeFoodPage = ({ match: { params: { id } } }) => {
-  const { foods } = useRecipeApp();
-
-  const details = fetchDetails(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`).then((response) => console.log(response.meals));
+  const { page, setPage, details, setDetails } = useRecipeApp();
+  const [ingredients, setIngredient] = useState([]);
+  const [measures, setMeasure] = useState([]);
+  const [recomendedDrinks, setRecomendedDrinks] = useState();
 
   useEffect(() => {
-    details();
-  }, []);
+    fetchDetailsFood(id).then((response) => {
+      const recipeDetails = response.meals[0];
+      setDetails(recipeDetails);
+      const ingredientList = Object.values(Object.fromEntries(Object.entries(recipeDetails).filter(([key, value]) => key.includes('Ingredient') && value !== '')));
+      const measureList = Object.values(Object.fromEntries(Object.entries(recipeDetails).filter(([key, value]) => key.includes('Measure') && value !== '')));
+      setPage('foodDetails');
+      setIngredient(ingredientList);
+      setMeasure(measureList);
+    });
+    fetchRecomendedDrinks().then((response) => setRecomendedDrinks(response.drinks));
+  }, [id]);
 
   return (
     <div>
-      {console.log(id)}
-      <RecipeDetais />
+      <RecipeDetails ingredients={ ingredients } measures={ measures } recomendeds={ recomendedDrinks } />
     </div>
   );
 };
