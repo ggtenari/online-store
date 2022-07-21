@@ -6,7 +6,7 @@ import StartRecipe from './StartRecipe'
 
 
 const RecipeDetails = (props) => {
-  const { ingredients, measures, recomendeds, id } = props;
+  const { ingredients, measures, recomendeds, idRecipe } = props;
   console.log(id);
   const [redirect, setRedirect] = useState({goLink: false, link: ''})
   const { history, details, page } = useRecipeApp();
@@ -23,7 +23,7 @@ const RecipeDetails = (props) => {
   // }, []);
   
   const setLink = (pagina) => {
-    setRedirect({goLink: true, link: `/${pagina}/${id}/in-progress`})
+    setRedirect({goLink: true, link: `/${pagina}/${idRecipe}/in-progress`})
   }
 
   const filterRecipes = (recipes) => {
