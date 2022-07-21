@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes, { object } from 'prop-types';
 import { useRecipeApp } from '../context/RecipeAppProvider';
 
 const RecipeDetails = (props) => {
   const { ingredients, measures, recomendeds } = props;
-  const { history, details, page } = useRecipeApp();
+  const { details, page } = useRecipeApp();
 
   const style = {
     width: '150px',
@@ -48,16 +49,30 @@ const RecipeDetails = (props) => {
               { ingredients
               && (
                 <div>
-                  {ingredients.map((ingredient, index) => <p key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>{`-${ingredient} - ${measures[index]}`}</p>)}
+                  {ingredients
+                    .map(
+                      (ingredient, index) => (
+                        <p
+                          key={ index }
+                          data-testid={ `${index}-ingredient-name-and-measure` }
+                        >
+                          {`-${ingredient} - ${measures[index]}`}
+                        </p>
+                      ),
+                    )}
                 </div>
               )}
 
               <p data-testid="instructions">{details.strInstructions}</p>
-              <Link to={ details.strYoutube }><div data-testid="video">{details.strYoutube}</div></Link>
+              <Link
+                to={ details.strYoutube }
+              >
+                <div data-testid="video">{details.strYoutube}</div>
+              </Link>
               <div>
                 <h5>Receitas recomendadas</h5>
                 <div>
-                  {recomendeds && filterRecipes(recomendeds)?.map((recomended, index) => (
+                  {recomendeds && filterRecipes(recomendeds).map((recomended, index) => (
                     <div data-testid={ `${index}-recomendation-card` } key={ index }>
                       <Link to={ `/drinks/${recomended.idDrink}` }>
                         <img
@@ -66,7 +81,11 @@ const RecipeDetails = (props) => {
                           alt={ `imagem da receita ${index}` }
                           style={ style }
                         />
-                        <div data-testid={ `${index}-card-name` }>{ recomended.strDrink }</div>
+                        <div
+                          data-testid={ `${index}-card-name` }
+                        >
+                          { recomended.strDrink }
+                        </div>
                       </Link>
                     </div>
                   ))}
@@ -94,7 +113,17 @@ const RecipeDetails = (props) => {
                 { ingredients
                 && (
                   <div>
-                    {ingredients.map((ingredient, index) => <p key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>{`-${ingredient} - ${measures[index]}`}</p>)}
+                    {ingredients
+                      .map(
+                        (ingredient, index) => (
+                          <p
+                            key={ index }
+                            data-testid={ `${index}-ingredient-name-and-measure` }
+                          >
+                            {`-${ingredient} - ${measures[index]}`}
+                          </p>
+                        ),
+                      )}
                   </div>
                 )}
 
@@ -102,19 +131,24 @@ const RecipeDetails = (props) => {
                 <div>
                   <h5>Receitas recomendadas</h5>
                   <div>
-                    {recomendeds && filterRecipes(recomendeds)?.map((recomended, index) => (
-                    <div data-testid={ `${index}-recomendation-card` } key={ index }>
-                      <Link to={ `/foods/${recomended.idMeal}` }>
-                        <img
-                          data-testid={ `${index}-card-img` }
-                          src={ recomended.strMealThumb }
-                          alt={ `imagem da receita ${index}` }
-                          style={ style }
-                        />
-                        <div data-testid={ `${index}-card-name` }>{ recomended.strMeal }</div>
-                      </Link>
-                    </div>
-                  ))}
+                    {recomendeds
+                    && filterRecipes(recomendeds).map((recomended, index) => (
+                      <div data-testid={ `${index}-recomendation-card` } key={ index }>
+                        <Link to={ `/foods/${recomended.idMeal}` }>
+                          <img
+                            data-testid={ `${index}-card-img` }
+                            src={ recomended.strMealThumb }
+                            alt={ `imagem da receita ${index}` }
+                            style={ style }
+                          />
+                          <div
+                            data-testid={ `${index}-card-name` }
+                          >
+                            { recomended.strMeal }
+                          </div>
+                        </Link>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
@@ -122,6 +156,12 @@ const RecipeDetails = (props) => {
       }
     </div>
   );
+};
+
+RecipeDetails.propTypes = {
+  ingredients: PropTypes.arrayOf(PropTypes.string).isRequired,
+  measures: PropTypes.arrayOf(PropTypes.string).isRequired,
+  recomendeds: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
 };
 
 export default RecipeDetails;
