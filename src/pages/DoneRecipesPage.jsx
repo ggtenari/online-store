@@ -1,9 +1,12 @@
 import React from 'react';
+import Header from '../components/Header';
 
-const DoneRecipesPage = () => (
-  <div>
-    PAGINA DO DoneRecipesPage
-  </div>
-);
+function DoneRecipesPage() {
+  return (
+    <div>
+      <Header title="Done Recipes" />
+    </div>
+  );
+}
 
 export default DoneRecipesPage;

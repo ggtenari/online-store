@@ -1,9 +1,16 @@
 import React from 'react';
+import RecipeCard from '../components/RecipesCard';
+import { useRecipeApp } from '../context/RecipeAppProvider';
 
-const RecipeFoodPage = () => (
-  <div>
-    PAGINA DO RecipeFoodPage
-  </div>
-);
+const RecipeFoodPage = () => {
+  const { foods } = useRecipeApp();
+
+  return (
+    <div>
+
+      {foods && <h1>PAGINA DO RecipeFoodPage</h1> }
+    </div>
+  );
+};
 
 export default RecipeFoodPage;
