@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Redirect } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import { useRecipeApp } from '../context/RecipeAppProvider';
 import StartRecipe from './StartRecipe'
 
 
 const RecipeDetails = (props) => {
   const { ingredients, measures, recomendeds, idRecipe } = props;
-  console.log(id);
   const [redirect, setRedirect] = useState({goLink: false, link: ''})
   const { history, details, page } = useRecipeApp();
 
@@ -67,20 +65,20 @@ const RecipeDetails = (props) => {
               )}
 
               <p data-testid="instructions">{details.strInstructions}</p>
-              <Link to={ details.strYoutube }><div data-testid="video">{details.strYoutube}</div></Link>
+              <Link to={details.strYoutube}><div data-testid="video">{details.strYoutube}</div></Link>
               <div>
                 <h5>Receitas recomendadas</h5>
                 <div>
                   {recomendeds && filterRecipes(recomendeds)?.map((recomended, index) => (
-                    <div data-testid={ `${index}-recomendation-card` } key={ index }>
-                      <Link to={ `/drinks/${recomended.idDrink}` }>
+                    <div data-testid={`${index}-recomendation-card`} key={index}>
+                      <Link to={`/drinks/${recomended.idDrink}`}>
                         <img
-                          data-testid={ `${index}-card-img` }
-                          src={ recomended.strDrinkThumb }
-                          alt={ `imagem da receita ${index}` }
-                          style={ style }
+                          data-testid={`${index}-card-img`}
+                          src={recomended.strDrinkThumb}
+                          alt={`imagem da receita ${index}`}
+                          style={style}
                         />
-                        <div data-testid={ `${index}-card-name` }>{ recomended.strDrink }</div>
+                        <div data-testid={`${index}-card-name`}>{recomended.strDrink}</div>
                       </Link>
                     </div>
                   ))}
@@ -135,6 +133,31 @@ const RecipeDetails = (props) => {
                 <button type="button" onClick={() => setLink('drinks')} className="startRecipe">Start Recipe</button>
               </div>
             )
+      }
+      {
+        page === 'foodInProgress' 
+        && (
+            <div>
+              <div key={ details.strMeal }>
+                <img
+                  data-testid="recipe-photo"
+                  src={ details.strMealThumb }
+                  alt={ `imagem da receita ${details.strMeal}` }
+                  style={ style }
+                />
+                <h3 data-testid="recipe-title">{details.strMeal}</h3>
+                <h3 data-testid="recipe-category">{details.strCategory}</h3>
+              </div>
+              { ingredients
+              && (
+                <div>
+                  {ingredients.map((ingredient, index) => <p key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>{`-${ingredient} - ${measures[index]}`}</p>)}
+                </div>
+              )}
+
+              <p data-testid="instructions">{details.strInstructions}</p>
+              </ div>
+        )
       }
       {redirect.goLink && <Redirect to={ redirect.link }></Redirect>}
     </div>
