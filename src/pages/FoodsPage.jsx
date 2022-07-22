@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import fetchFoods from '../helpers/fetchfoods';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import RecipeCard from '../components/RecipesCard';
 import { useRecipeApp } from '../context/RecipeAppProvider';
+import fetchFoods from '../helpers/fetchfoods';
 
 const FoodsPage = () => {
-  const { setFoods } = useRecipeApp();
-  const [toggle, setToggle] = useState('');
+  const { setFoods, setPage } = useRecipeApp();
   const [categories, setCategories] = useState();
   const maxIndexFoods = 12;
   const maxIndexCategories = 5;

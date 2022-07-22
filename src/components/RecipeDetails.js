@@ -1,5 +1,5 @@
 import React from 'react';
-import { Redirect, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useRecipeApp } from '../context/RecipeAppProvider';
 // import StartRecipe from './StartRecipe';
 
@@ -57,17 +57,15 @@ const RecipeDetails = (props) => {
               { ingredients
               && (
                 <div>
-                  {ingredients
-                    .map(
-                      (ingredient, index) => (
-                        <p
-                          key={ index }
-                          data-testid={ `${index}-ingredient-name-and-measure` }
-                        >
-                          {`-${ingredient} - ${measures[index]}`}
-                        </p>
-                      ),
-                    )}
+
+                  {ingredients.map((ingredient, index) => (
+                    <p
+                      key={ index }
+                      data-testid={ `${index}-ingredient-name-and-measure` }
+                    >
+                      {`-${ingredient} - ${measures[index]}`}
+                    </p>
+                  ))}
                 </div>
               )}
 
@@ -90,7 +88,7 @@ const RecipeDetails = (props) => {
                         <div
                           data-testid={ `${index}-card-name` }
                         >
-                          {recomended.strDrink}
+                          { recomended.strDrink }
                         </div>
                       </Link>
                     </div>
@@ -127,16 +125,14 @@ const RecipeDetails = (props) => {
                 && (
                   <div>
                     {ingredients
-                      .map(
-                        (ingredient, index) => (
-                          <p
-                            key={ index }
-                            data-testid={ `${index}-ingredient-name-and-measure` }
-                          >
-                            {`-${ingredient} - ${measures[index]}`}
-                          </p>
-                        ),
-                      )}
+                      .map((ingredient, index) => (
+                        <p
+                          key={ index }
+                          data-testid={ `${index}-ingredient-name-and-measure` }
+                        >
+                          {`-${ingredient} - ${measures[index]}`}
+                        </p>
+                      ))}
                   </div>
                 )}
 
@@ -145,23 +141,24 @@ const RecipeDetails = (props) => {
                   <h5>Receitas recomendadas</h5>
                   <div>
                     {recomendeds
-                     && filterRecipes(recomendeds).map((recomended, index) => (
-                       <div data-testid={ `${index}-recomendation-card` } key={ index }>
-                         <Link to={ `/foods/${recomended.idMeal}` }>
-                           <img
-                             data-testid={ `${index}-card-img` }
-                             src={ recomended.strMealThumb }
-                             alt={ `imagem da receita ${index}` }
-                             style={ style }
-                           />
-                           <div
-                             data-testid={ `${index}-card-name` }
-                           >
-                             { recomended.strMeal }
-                           </div>
-                         </Link>
-                       </div>
-                     ))}
+                    && filterRecipes(recomendeds)
+                      .map((recomended, index) => (
+                        <div data-testid={ `${index}-recomendation-card` } key={ index }>
+                          <Link to={ `/foods/${recomended.idMeal}` }>
+                            <img
+                              data-testid={ `${index}-card-img` }
+                              src={ recomended.strMealThumb }
+                              alt={ `imagem da receita ${index}` }
+                              style={ style }
+                            />
+                            <div
+                              data-testid={ `${index}-card-name` }
+                            >
+                              { recomended.strMeal }
+                            </div>
+                          </Link>
+                        </div>
+                      ))}
                   </div>
                 </div>
                 <button
