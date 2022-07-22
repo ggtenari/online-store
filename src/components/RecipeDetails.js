@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import { useRecipeApp } from '../context/RecipeAppProvider';
-import StartRecipe from './StartRecipe';
+// import StartRecipe from './StartRecipe';
 
 const RecipeDetails = (props) => {
   const { ingredients, measures, recomendeds } = props;
@@ -29,9 +29,9 @@ const RecipeDetails = (props) => {
     return cards;
   };
 
-  const handleStartRecipe = () => {
+  // const handleStartRecipe = () => {
 
-  };
+  // };
 
   return (
     <div>
@@ -72,7 +72,9 @@ const RecipeDetails = (props) => {
               )}
 
               <p data-testid="instructions">{details.strInstructions}</p>
-              <Link to={ details.strYoutube }><div data-testid="video">{details.strYoutube}</div></Link>
+              <Link to={ details.strYoutube }>
+                <div data-testid="video">{details.strYoutube}</div>
+              </Link>
               <div>
                 <h5>Receitas recomendadas</h5>
                 <div>
@@ -85,13 +87,23 @@ const RecipeDetails = (props) => {
                           alt={ `imagem da receita ${index}` }
                           style={ style }
                         />
-                        <div data-testid={ `${index}-card-name` }>{recomended.strDrink}</div>
+                        <div
+                          data-testid={ `${index}-card-name` }
+                        >
+                          {recomended.strDrink}
+                        </div>
                       </Link>
                     </div>
                   ))}
                 </div>
               </div>
-              <button type="button" onClick={ () => setLink('foods') } className="startRecipe">Start Recipe</button>
+              <button
+                type="button"
+                onClick={ () => setLink('foods') }
+                className="startRecipe"
+              >
+                Start Recipe
+              </button>
             </div>
           )
       }
@@ -132,22 +144,33 @@ const RecipeDetails = (props) => {
                 <div>
                   <h5>Receitas recomendadas</h5>
                   <div>
-                    {recomendeds && filterRecipes(recomendeds).map((recomended, index) => (
-                      <div data-testid={ `${index}-recomendation-card` } key={ index }>
-                        <Link to={ `/foods/${recomended.idMeal}` }>
-                          <img
-                            data-testid={ `${index}-card-img` }
-                            src={ recomended.strMealThumb }
-                            alt={ `imagem da receita ${index}` }
-                            style={ style }
-                          />
-                          <div data-testid={ `${index}-card-name` }>{ recomended.strMeal }</div>
-                        </Link>
-                      </div>
-                    ))}
+                    {recomendeds
+                     && filterRecipes(recomendeds).map((recomended, index) => (
+                       <div data-testid={ `${index}-recomendation-card` } key={ index }>
+                         <Link to={ `/foods/${recomended.idMeal}` }>
+                           <img
+                             data-testid={ `${index}-card-img` }
+                             src={ recomended.strMealThumb }
+                             alt={ `imagem da receita ${index}` }
+                             style={ style }
+                           />
+                           <div
+                             data-testid={ `${index}-card-name` }
+                           >
+                             { recomended.strMeal }
+                           </div>
+                         </Link>
+                       </div>
+                     ))}
                   </div>
                 </div>
-                <button type="button" onClick={ () => setLink('drinks') } className="startRecipe">Start Recipe</button>
+                <button
+                  type="button"
+                  onClick={ () => setLink('drinks') }
+                  className="startRecipe"
+                >
+                  Start Recipe
+                </button>
               </div>
             )
       }
@@ -168,7 +191,15 @@ const RecipeDetails = (props) => {
             { ingredients
               && (
                 <div>
-                  {ingredients.map((ingredient, index) => <p key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>{`-${ingredient} - ${measures[index]}`}</p>)}
+                  {ingredients
+                    .map((ingredient, index) => (
+                      <p
+                        key={ index }
+                        data-testid={ `${index}-ingredient-name-and-measure` }
+                      >
+                        {`-${ingredient} - ${measures[index]}`}
+                      </p>
+                    ))}
                 </div>
               )}
 
