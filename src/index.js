@@ -7,13 +7,12 @@ import * as serviceWorker from './serviceWorker';
 import RecipeAppProvider from './context/RecipeAppProvider';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <RecipeAppProvider>
-        <App />
-      </RecipeAppProvider>
-    </BrowserRouter>
-  </React.StrictMode>, document.getElementById('root'),
+  <BrowserRouter>
+    <RecipeAppProvider>
+      <App />
+    </RecipeAppProvider>
+  </BrowserRouter>,
+  document.getElementById('root'),
 );
 
 // If you want your app to work offline and load faster, you can change

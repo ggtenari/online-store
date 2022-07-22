@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import RecipeCard from '../components/RecipesCard';
@@ -18,18 +17,20 @@ const FoodsPage = () => {
   };
   useEffect(() => {
     apiRequests();
-    setPage('foods');
   }, []);
-  // useEffect(() => {
-  //   console.log(categories);
-  //   console.log(foods);
-  // }, [foods, categories]);
 
-  const handleCategorie = async (name) => {
-    await fetchFoods(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${name}`).then((response) => setFoods(response.meals));
-  };
   const handleOnClickAll = async () => {
     fetchFoods('https://www.themealdb.com/api/json/v1/1/search.php?s=').then((response) => setFoods(response.meals.slice(0, maxIndexFoods)));
+    setToggle('');
+  };
+  const handleCategorie = async (name) => {
+    if (toggle === name) {
+      console.log('if');
+      handleOnClickAll();
+    } else {
+      setToggle(name);
+      fetchFoods(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${name}`).then((response) => setFoods(response.meals));
+    }
   };
 
   return (
@@ -45,6 +46,7 @@ const FoodsPage = () => {
         >
           {categorie.strCategory}
         </button>
+
       ))}
       <button
         onClick={ handleOnClickAll }
@@ -53,13 +55,8 @@ const FoodsPage = () => {
       >
         All
       </button>
-      {/* {foods !== null
-        && foods.length === 1
-        && <Redirect to={ `/foods/${foods[0].idMeal}` } />}
-      {foods ? <RecipeCard />
-        : alert('Sorry, we haven\'t found any recipes for these filters.')} */}
-      PAGINA DO FOODSPAGE
       <RecipeCard page="foods" />
+      <p>PAGINA DO FOODSPAGE</p>
       <Footer />
     </div>
   );

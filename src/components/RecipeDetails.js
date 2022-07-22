@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useRecipeApp } from '../context/RecipeAppProvider';
+// import StartRecipe from './StartRecipe';
 
 const RecipeDetails = (props) => {
   const { ingredients, measures, recomendeds } = props;
@@ -17,12 +18,20 @@ const RecipeDetails = (props) => {
   //   console.log(props);
   // }, []);
 
+  const setLink = (pagina) => {
+    setRedirect({ goLink: true, link: `/${pagina}/${idRecipe}/in-progress` });
+  };
+
   const filterRecipes = (recipes) => {
     const maxCard = 6;
     let cards = recipes;
     if (recipes && recipes.length > maxCard) cards = recipes.slice(0, maxCard);
     return cards;
   };
+
+  // const handleStartRecipe = () => {
+
+  // };
 
   return (
     <div>
@@ -48,6 +57,7 @@ const RecipeDetails = (props) => {
               { ingredients
               && (
                 <div>
+
                   {ingredients.map((ingredient, index) => (
                     <p
                       key={ index }
@@ -85,6 +95,13 @@ const RecipeDetails = (props) => {
                   ))}
                 </div>
               </div>
+              <button
+                type="button"
+                onClick={ () => setLink('foods') }
+                className="startRecipe"
+              >
+                Start Recipe
+              </button>
             </div>
           )
       }
@@ -144,9 +161,50 @@ const RecipeDetails = (props) => {
                       ))}
                   </div>
                 </div>
+                <button
+                  type="button"
+                  onClick={ () => setLink('drinks') }
+                  className="startRecipe"
+                >
+                  Start Recipe
+                </button>
               </div>
             )
       }
+      {
+        page === 'foodInProgress'
+        && (
+          <div>
+            <div key={ details.strMeal }>
+              <img
+                data-testid="recipe-photo"
+                src={ details.strMealThumb }
+                alt={ `imagem da receita ${details.strMeal}` }
+                style={ style }
+              />
+              <h3 data-testid="recipe-title">{details.strMeal}</h3>
+              <h3 data-testid="recipe-category">{details.strCategory}</h3>
+            </div>
+            { ingredients
+              && (
+                <div>
+                  {ingredients
+                    .map((ingredient, index) => (
+                      <p
+                        key={ index }
+                        data-testid={ `${index}-ingredient-name-and-measure` }
+                      >
+                        {`-${ingredient} - ${measures[index]}`}
+                      </p>
+                    ))}
+                </div>
+              )}
+
+            <p data-testid="instructions">{details.strInstructions}</p>
+          </div>
+        )
+      }
+      {redirect.goLink && <Redirect to={ redirect.link } />}
     </div>
   );
 };

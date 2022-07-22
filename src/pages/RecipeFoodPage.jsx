@@ -36,6 +36,7 @@ const RecipeFoodPage = ({ match: { params: { id } } }) => {
     <div>
       <RecipeDetails
         ingredients={ ingredients }
+        id={ id }
         measures={ measures }
         recomendeds={ recomendedDrinks }
       />
