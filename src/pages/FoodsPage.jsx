@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Redirect } from 'react-router-dom';
+
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import RecipeCard from '../components/RecipesCard';
@@ -7,7 +7,7 @@ import { useRecipeApp } from '../context/RecipeAppProvider';
 import fetchFoods from '../helpers/fetchfoods';
 
 const FoodsPage = () => {
-  const { foods, setFoods, setPage } = useRecipeApp();
+  const { setFoods, setPage } = useRecipeApp();
   const [categories, setCategories] = useState();
   const maxIndexFoods = 12;
   const maxIndexCategories = 5;
