@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useRecipeApp } from '../context/RecipeAppProvider';
-import RecipeDetails from '../components/RecipeDetails';
+
 import fetchDetailsDrink from '../helpers/fetchDetailsDrink';
 import fetchRecomendedFood from '../helpers/fecthRecomendedFoods';
+import RecipeDetails from '../components/RecipeDetails';
 
 const RecipeDrinkPage = ({ match: { params: { id } } }) => {
   const { setDetails, setPage } = useRecipeApp();
