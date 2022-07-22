@@ -8,16 +8,25 @@ const RecipeDetails = (props) => {
   const [redirect, setRedirect] = useState({ goLink: false, link: '' });
   const { details, page } = useRecipeApp();
 
+  const styleCarousel = {
+    width: '360px',
+    heigth: '180px',
+    display: 'flex',
+    overflow: 'auto',
+  };
+  styleCarousel['white-space'] = 'nowrap';
+
+  const styleItem = {
+    padding: '20px',
+    width: '60%',
+    heigth: '180px',
+    float: 'left',
+  };
+
   const style = {
     width: '150px',
     heigth: '150px',
   };
-
-  // useEffect(() => {
-  //   console.log(history);
-  //   console.log(details);
-  //   console.log(props);
-  // }, []);
 
   const setLink = (pagina) => {
     setRedirect({ goLink: true, link: `/${pagina}/${idRecipe}/in-progress` });
@@ -40,7 +49,6 @@ const RecipeDetails = (props) => {
       <div>
         DETALHES DA RECEITA
       </div>
-
       {
         page === 'foodDetails'
         && details
@@ -59,7 +67,6 @@ const RecipeDetails = (props) => {
               { ingredients
               && (
                 <div>
-
                   {ingredients.map((ingredient, index) => (
                     <p
                       key={ index }
@@ -68,54 +75,53 @@ const RecipeDetails = (props) => {
                       {`-${ingredient} - ${measures[index]}`}
 
                     </p>))}
-
                 </div>
               )}
-
               <p data-testid="instructions">{details.strInstructions}</p>
-
               <Link
                 to={ details.strYoutube }
               >
                 <div data-testid="video">
                   {details.strYoutube}
                 </div>
-
               </Link>
               <div>
                 <h5>Receitas recomendadas</h5>
-                <div>
+                <div style={ styleCarousel }>
                   {recomendeds && filterRecipes(recomendeds).map((recomended, index) => (
-                    <div data-testid={ `${index}-recomendation-card` } key={ index }>
+                    <div
+                      data-testid={ `${index}-recomendation-card` }
+                      key={ index }
+                      style={ styleItem }
+                    >
                       <Link to={ `/drinks/${recomended.idDrink}` }>
                         <img
-                          data-testid={ `${index}-card-img` }
+                          data-testid="recipe-photo"
                           src={ recomended.strDrinkThumb }
                           alt={ `imagem da receita ${index}` }
                           style={ style }
                         />
-
-                        <div data-testid={ `${index}-card-name` }>
+                        <h3
+                          data-testid={ `${index}-recomendation-title` }
+                        >
                           {recomended.strDrink}
-
-                        </div>
+                        </h3>
                       </Link>
                     </div>
                   ))}
                 </div>
               </div>
-              <button
+              {/* <button
                 type="button"
                 onClick={ () => setLink('foods') }
                 className="startRecipe"
               >
                 Start Recipe
 
-              </button>
+              </button> */}
             </div>
           )
       }
-
       {
         page === 'drinkDetails'
           && details
@@ -144,28 +150,29 @@ const RecipeDetails = (props) => {
 
                   </div>
                 )}
-
                 <p data-testid="instructions">{details.strInstructions}</p>
                 <div>
                   <h5>Receitas recomendadas</h5>
-                  <div>
-
+                  <div style={ styleCarousel }>
                     {recomendeds && filterRecipes(recomendeds)
-
                       .map((recomended, index) => (
-                        <div data-testid={ `${index}-recomendation-card` } key={ index }>
+                        <div
+                          data-testid={ `${index}-recomendation-card` }
+                          key={ index }
+                          style={ styleItem }
+                        >
                           <Link to={ `/foods/${recomended.idMeal}` }>
                             <img
-                              data-testid={ `${index}-card-img` }
+                              data-testid="recipe-photo"
                               src={ recomended.strMealThumb }
                               alt={ `imagem da receita ${index}` }
                               style={ style }
                             />
-                            <div
-                              data-testid={ `${index}-card-name` }
+                            <h3
+                              data-testid={ `${index}-recomendation-title` }
                             >
-                              { recomended.strMeal }
-                            </div>
+                              {recomended.strMeal}
+                            </h3>
                           </Link>
                         </div>
                       ))}
@@ -210,7 +217,6 @@ const RecipeDetails = (props) => {
 
                 </div>
               )}
-
             <p data-testid="instructions">{details.strInstructions}</p>
           </div>
         )

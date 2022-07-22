@@ -1,8 +1,8 @@
 import React from 'react';
-import { screen, waitFor } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import renderWithRouter from '../helpers/renderWithRouter';
-import Profile from '../pages/Profile';
+import renderWithRouter from './renderWithRouter';
+import App from '../App';
 
 
 describe('Testar o componente Profile', () => {
