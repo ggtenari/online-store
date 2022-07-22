@@ -21,7 +21,7 @@ const RecipeCard = ({ page }) => {
     <div>
       Card de Receita
       <div>Receita</div>
-      { page === 'foods' && filterRecipes(foods)?.map((food, index) => (
+      { page === 'foods' && filterRecipes(foods).map((food, index) => (
         <div data-testid={ `${index}-recipe-card` } key={ food.strMeal }>
           <Link to={ `/foods/${food.idMeal}` }>
             <img
@@ -34,19 +34,19 @@ const RecipeCard = ({ page }) => {
           </Link>
         </div>
       ))}
-      { page === 'drinks' && filterRecipes(drinks)?.map((drink, index) => (
-          <div data-testid={ `${index}-recipe-card` } key={ drink.strDrink }>
-            <Link to={ `/drinks/${drink.idDrink}` }>
-              <img
-                data-testid={ `${index}-card-img` }
-                src={ drink.strDrinkThumb }
-                alt={ `imagem da receita ${index}` }
-                style={ style }
-              />
-              <div data-testid={ `${index}-card-name` }>{ drink.strDrink }</div>
-            </Link>
-          </div>
-        ))}
+      { page === 'drinks' && filterRecipes(drinks).map((drink, index) => (
+        <div data-testid={ `${index}-recipe-card` } key={ drink.strDrink }>
+          <Link to={ `/drinks/${drink.idDrink}` }>
+            <img
+              data-testid={ `${index}-card-img` }
+              src={ drink.strDrinkThumb }
+              alt={ `imagem da receita ${index}` }
+              style={ style }
+            />
+            <div data-testid={ `${index}-card-name` }>{ drink.strDrink }</div>
+          </Link>
+        </div>
+      ))}
     </div>
   );
 };

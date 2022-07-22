@@ -32,9 +32,9 @@ function DrinksPage() {
     <div>
       <h1>PAGINA DO DRINKSPAGE</h1>
       <Header title="Drinks" searchIconOnOff />
-      {categories && categories?.map((categorie) => (
+      {categories && categories.map((categorie) => (
         <button
-          data-testid={`${categorie.strCategory}-category-filter`}
+          data-testid={ `${categorie.strCategory}-category-filter` }
           type="button"
           name={ categorie.strCategory }
           key={ categorie.strCategory }

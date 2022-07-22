@@ -57,7 +57,7 @@ const RecipeDetails = (props) => {
               <div>
                 <h5>Receitas recomendadas</h5>
                 <div>
-                  {recomendeds && filterRecipes(recomendeds)?.map((recomended, index) => (
+                  {recomendeds && filterRecipes(recomendeds).map((recomended, index) => (
                     <div data-testid={ `${index}-recomendation-card` } key={ index }>
                       <Link to={ `/drinks/${recomended.idDrink}` }>
                         <img
@@ -102,19 +102,19 @@ const RecipeDetails = (props) => {
                 <div>
                   <h5>Receitas recomendadas</h5>
                   <div>
-                    {recomendeds && filterRecipes(recomendeds)?.map((recomended, index) => (
-                    <div data-testid={ `${index}-recomendation-card` } key={ index }>
-                      <Link to={ `/foods/${recomended.idMeal}` }>
-                        <img
-                          data-testid={ `${index}-card-img` }
-                          src={ recomended.strMealThumb }
-                          alt={ `imagem da receita ${index}` }
-                          style={ style }
-                        />
-                        <div data-testid={ `${index}-card-name` }>{ recomended.strMeal }</div>
-                      </Link>
-                    </div>
-                  ))}
+                    {recomendeds && filterRecipes(recomendeds).map((recomended, index) => (
+                      <div data-testid={ `${index}-recomendation-card` } key={ index }>
+                        <Link to={ `/foods/${recomended.idMeal}` }>
+                          <img
+                            data-testid={ `${index}-card-img` }
+                            src={ recomended.strMealThumb }
+                            alt={ `imagem da receita ${index}` }
+                            style={ style }
+                          />
+                          <div data-testid={ `${index}-card-name` }>{ recomended.strMeal }</div>
+                        </Link>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
