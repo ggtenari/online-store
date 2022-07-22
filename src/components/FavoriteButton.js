@@ -2,16 +2,18 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import { useRecipeApp } from '../context/RecipeAppProvider';
 
 function FavoriteButton({ testid, objRecipe, typeRecipes }) {
   const [isfavorite, setIsFavorite] = useState(false);
+  const { setFavoriteList } = useRecipeApp();
 
   let infoRecipe;
 
-  if (typeRecipes === 'foods') {
+  if (typeRecipes === 'food') {
     infoRecipe = {
       id: objRecipe.idMeal,
-      type: 'foods',
+      type: 'food',
       nationality: objRecipe.strArea,
       category: objRecipe.strCategory,
       alcoholicOrNot: '',
@@ -20,7 +22,7 @@ function FavoriteButton({ testid, objRecipe, typeRecipes }) {
   } else {
     infoRecipe = {
       id: objRecipe.idDrink,
-      type: 'drinks',
+      type: 'drink',
       nationality: '',
       category: objRecipe.strCategory,
       alcoholicOrNot: objRecipe.strAlcoholic,
@@ -42,7 +44,7 @@ function FavoriteButton({ testid, objRecipe, typeRecipes }) {
     const listFavorites = getFavoriteRecipes();
 
     const isfavoriteRecipes = listFavorites.filter(
-      (recipe) => recipe.id === infoRecipe.id,
+      (recipe) => recipe.id === infoRecipe.id || recipe.id === objRecipe.id,
     );
 
     if (isfavoriteRecipes[0]) {
@@ -53,10 +55,13 @@ function FavoriteButton({ testid, objRecipe, typeRecipes }) {
   const handleOnClick = () => {
     const listFavorites = getFavoriteRecipes();
     if (isfavorite) {
-      setFavoriteRecipes(listFavorites.filter(
-        (recipe) => recipe.id !== infoRecipe.id,
-      ));
+      const newList = listFavorites.filter(
+        (recipe) => recipe.id !== objRecipe.id,
+      );
+      setFavoriteRecipes(newList);
+
       setIsFavorite(false);
+      setFavoriteList(newList);
     } else {
       setFavoriteRecipes([...listFavorites, infoRecipe]);
       setIsFavorite(true);
@@ -70,8 +75,8 @@ function FavoriteButton({ testid, objRecipe, typeRecipes }) {
 
   return (
     <input
-      style={ styleImg }
       data-testid={ testid }
+      style={ styleImg }
       onClick={ handleOnClick }
       type="image"
       src={ isfavorite ? blackHeartIcon : whiteHeartIcon }

@@ -3,7 +3,7 @@ import copy from 'clipboard-copy';
 import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
 
-function ShareButton({ url, testid }) {
+function ShareButton({ testid, url }) {
   const copyToClipboard = () => {
     copy(url);
     alert('Link copied!');
@@ -20,8 +20,8 @@ function ShareButton({ url, testid }) {
 }
 
 ShareButton.propTypes = {
-  url: PropTypes.string.isRequired,
   testid: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired,
 };
 
 export default ShareButton;
