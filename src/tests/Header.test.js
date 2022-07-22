@@ -5,7 +5,7 @@ import renderWithRouter from '../helpers/renderWithRouter';
 import App from '../App';
 
 describe('7 - Implemente o header de acordo com a necessidade de cada tela', () => {
-  it('testa rota sem Header', () => {
+  it('testa elementos', () => {
     const { history } = renderWithRouter(<App />);
 
     history.push('/foods:id');
@@ -14,11 +14,12 @@ describe('7 - Implemente o header de acordo com a necessidade de cada tela', () 
     const searchIconInput = screen.getByTestId('search-top-btn');
     const titleInput = screen.getByTestId('page-title');
 
-    expect(titleIconInput).not.toBeInTheDocument()
+    expect(titleIconInput).toBeInTheDocument()
     expect(searchIconInput).not.toBeInTheDocument()
-    expect(titleInput).not.toBeInTheDocument()
+    expect(titleInput).toBeInTheDocument()
   })
-  it('testa rota com render', (searchIconOnOff) => {
+
+  it('testa rota com render', () => {
     const { history } = renderWithRouter(<App />);
 
     history.push('/foods');
@@ -26,24 +27,19 @@ describe('7 - Implemente o header de acordo com a necessidade de cada tela', () 
     const titleIconInput = screen.getByTestId('profile-top-btn');
     const searchIconInput = screen.getByTestId('search-top-btn');
     const titleInput = screen.getByTestId('page-title');
-    const textSearch = screen.getByTestId('search-input');
 
     expect(titleIconInput).toBeInTheDocument()
     expect(searchIconInput).toBeInTheDocument()
     expect(titleInput).toBeInTheDocument()
 
-    if (searchIconOnOff === true) {
-      expect(textSearch).toBeInTheDocument()
-    } else {
-      expect(textSearch).not.toBeInTheDocument()
-    }
   });
 });
 
-  describe('8 - Redirecione a pessoa usuária para a tela de perfil ao clicar no botão de perfil', () => {
+  describe('Redirecione a pessoa usuária para a tela de perfil ao clicar no botão de perfil', () => {
   it('testa redirecionamento', () => {
     const {history} = renderWithRouter(<App />)
 
+    localStorage.setItem('name', JSON.stringify({ email: 'trybe@teste.com' }));
     history.push('/foods');
     const enterButton = screen.getByTestId('profile-top-btn')
     userEvent.click(enterButton)
