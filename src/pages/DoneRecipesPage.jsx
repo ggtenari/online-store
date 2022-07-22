@@ -1,13 +1,27 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
+import ShareBtn from '../components/Sharebtn';
+import { getDoneRecipes } from '../helpers/DoneLocalStorage';
 
 export default function DoneRecipesPage() {
   const [cards, setCards] = useState([]);
-  // const [allCards, setAllCards] = useState([]);
+  const [allCards, setAllCards] = useState([]);
+  const history = useHistory();
+
+  useEffect(() => {
+    setCards(getDoneRecipes());
+    setAllCards(getDoneRecipes());
+  }, []);
 
   const handleFilter = ({ target }) => {
     if (target.name === 'all') setCards(allCards);
     else setCards(allCards.filter((card) => card.type === target.name));
+  };
+
+  const redirect = (_, type, id) => {
+    if (type === 'food') history.push(`/foods/${id}`);
+    else history.push(`/drinks/${id}`);
   };
   return (
     <>
@@ -40,18 +54,22 @@ export default function DoneRecipesPage() {
       </div>
       <div>
         {cards && cards.map((card, index) => (
-          <div key="">
-            <span
+          <div key={ card.id }>
+            <label
+              htmlFor={ card.id }
               data-testid={ `${index}-horizontal-name` }
             >
-              { Name }
-            </span>
-            <img
-              data-testid={ `${index}-horizontal-image` }
-              src={ image }
-              alt="card-recipe"
-            // onClick={}
-            />
+              <input
+                id={ card.id }
+                type="image"
+                data-testid={ `${index}-horizontal-image` }
+                alt="recipe"
+                src={ card.image }
+                onClick={ (e) => redirect(e, card.type, card.id) }
+              />
+              { card.name }
+            </label>
+
             <p
               data-testid={ `${index}-horizontal-top-text` }
             >
@@ -62,9 +80,22 @@ export default function DoneRecipesPage() {
             <p
               data-testid={ `${index}-horizontal-done-date` }
             >
-              {/* condição para data */}
+              { card.doneDate}
             </p>
-            {/* botões e filtros */}
+            <ShareBtn
+              url={ card.type === 'food' ? '/foods' : '/drinks' }
+              recipeId={ card.id }
+              dataTestId={ `${index}-horizontal-share-btn` }
+            />
+
+            { (card.tags.length > 0) && card.tags.map((tag) => (
+              <p
+                key={ tag }
+                data-testid={ `${index}-${tag}-horizontal-tag` }
+              >
+                { tag }
+              </p>
+            ))}
           </div>
         ))}
       </div>
