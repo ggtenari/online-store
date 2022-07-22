@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { useRecipeApp } from '../context/RecipeAppProvider';
 
 const RecipeCard = ({ page }) => {
-  const { foods, drinks, location: { pathname } } = useRecipeApp();
+  const { foods, drinks } = useRecipeApp();
   const style = {
     width: '50px',
     heigth: '50px',
