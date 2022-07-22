@@ -16,7 +16,7 @@ const RecipeCard = ({ page }) => {
     if (recipes && recipes.length > maxCard) cards = recipes.slice(0, maxCard);
     return cards;
   };
-
+  console.log(filterRecipes(foods));
   return (
     <div>
       Card de Receita
