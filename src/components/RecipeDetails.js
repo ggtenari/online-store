@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Redirect, Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import { useRecipeApp } from '../context/RecipeAppProvider';
 
 const RecipeDetails = (props) => {
   const { ingredients, measures, recomendeds, idRecipe } = props;
+  const localStorageObject = {};
   const [redirect, setRedirect] = useState({ goLink: false, link: '' });
   const { details, page } = useRecipeApp();
 
@@ -29,6 +29,7 @@ const RecipeDetails = (props) => {
   };
 
   const setLink = (pagina) => {
+    console.log(idRecipe);
     setRedirect({ goLink: true, link: `/${pagina}/${idRecipe}/in-progress` });
   };
 
@@ -73,7 +74,6 @@ const RecipeDetails = (props) => {
                       data-testid={ `${index}-ingredient-name-and-measure` }
                     >
                       {`-${ingredient} - ${measures[index]}`}
-
                     </p>))}
                 </div>
               )}
@@ -148,7 +148,6 @@ const RecipeDetails = (props) => {
                       >
                         {`-${ingredient} - ${measures[index]}`}
                       </p>))}
-
                   </div>
                 )}
                 <p data-testid="instructions">{details.strInstructions}</p>
@@ -191,9 +190,9 @@ const RecipeDetails = (props) => {
               </div>
             )
       }
-      {
+      {/* {
         page === 'foodInProgress'
-        && (
+        && details && (
           <div>
             <div key={ details.strMeal }>
               <img
@@ -205,9 +204,22 @@ const RecipeDetails = (props) => {
               <h3 data-testid="recipe-title">{details.strMeal}</h3>
               <h3 data-testid="recipe-category">{details.strCategory}</h3>
             </div>
-            { ingredients
+            { ingredientsInProgress.ingredientList
               && (
                 <div>
+                  {ingredientsInProgress.ingredientList.map((ingrediente, index) => (
+                    <div key={ index }>
+                      <label
+                        data-testid={ `${index}-ingredient-step` }
+                        htmlFor={ ingrediente }
+                      >
+                        {`${ingrediente} ${ingredientsInProgress.measureList[index]}`}
+                        <input
+                          type="checkbox"
+                          checked={ foodCheck[ingrediente] }
+                          value={ ingrediente }
+                          id={ ingrediente }
+                          onChange={ (event) => setChecked(event.target.value) }
 
                   {ingredients.map((ingredients1, index) => (
                     <p
@@ -222,7 +234,7 @@ const RecipeDetails = (props) => {
             <p data-testid="instructions">{details.strInstructions}</p>
           </div>
         )
-      }
+      } */}
       {redirect.goLink && <Redirect to={ redirect.link } />}
     </div>
   );
