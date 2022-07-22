@@ -111,14 +111,15 @@ const RecipeDetails = (props) => {
                   ))}
                 </div>
               </div>
-              {/* <button
+              <button
                 type="button"
                 onClick={ () => setLink('foods') }
                 className="startRecipe"
+                data-testid="start-recipe-btn"
               >
                 Start Recipe
 
-              </button> */}
+              </button>
             </div>
           )
       }
@@ -182,6 +183,7 @@ const RecipeDetails = (props) => {
                   type="button"
                   onClick={ () => setLink('drinks') }
                   className="startRecipe"
+                  data-testid="start-recipe-btn"
                 >
                   Start Recipe
 
