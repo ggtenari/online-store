@@ -3,7 +3,7 @@ import Header from '../components/Header';
 
 export default function DoneRecipesPage() {
   const [cards, setCards] = useState([]);
-  const [allCards, setAllCards] = useState([]);
+  // const [allCards, setAllCards] = useState([]);
 
   const handleFilter = ({ target }) => {
     if (target.name === 'all') setCards(allCards);
