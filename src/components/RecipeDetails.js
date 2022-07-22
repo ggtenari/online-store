@@ -1,16 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useRecipeApp } from '../context/RecipeAppProvider';
 
-import StartRecipe from './StartRecipe';
-
 const RecipeDetails = (props) => {
   const { ingredients, measures, recomendeds, idRecipe } = props;
   const [redirect, setRedirect] = useState({ goLink: false, link: '' });
-  const { history, details, page } = useRecipeApp();
-
-
+  const { details, page } = useRecipeApp();
 
   const style = {
     width: '150px',
@@ -35,9 +31,9 @@ const RecipeDetails = (props) => {
   };
 
   const handleStartRecipe = () => {
-
+    console.log('handleStartRecipe');
   };
-
+  handleStartRecipe();
 
   return (
     <div>
@@ -84,7 +80,6 @@ const RecipeDetails = (props) => {
                 <div data-testid="video">
                   {details.strYoutube}
                 </div>
-
 
               </Link>
               <div>
@@ -205,12 +200,12 @@ const RecipeDetails = (props) => {
               && (
                 <div>
 
-                  {ingredients.map((ingredients, index) => (
+                  {ingredients.map((ingredients1, index) => (
                     <p
                       key={ index }
                       data-testid={ `${index}-ingredient-name-and-measure` }
                     >
-                      {`-${ingredients} - ${measures[index]}`}
+                      {`-${ingredients1} - ${measures[index]}`}
                     </p>))}
 
                 </div>
@@ -229,6 +224,7 @@ RecipeDetails.propTypes = {
   ingredients: PropTypes.arrayOf(PropTypes.string).isRequired,
   measures: PropTypes.arrayOf(PropTypes.string).isRequired,
   recomendeds: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
+  idRecipe: PropTypes.string.isRequired,
 };
 
 export default RecipeDetails;
