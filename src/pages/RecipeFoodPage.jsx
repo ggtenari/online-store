@@ -6,7 +6,7 @@ import fetchDetailsFood from '../helpers/fetchDetailsFood';
 import fetchRecomendedDrinks from '../helpers/fetchRecomendedDrinks';
 
 const RecipeFoodPage = ({ match: { params: { id } } }) => {
-  const { setPage, setDetails } = useRecipeApp();
+  const { setPage, setDetails, setIngredientsInProgress } = useRecipeApp();
   const [ingredients, setIngredient] = useState([]);
   const [measures, setMeasure] = useState([]);
   const [recomendedDrinks, setRecomendedDrinks] = useState();
@@ -26,6 +26,7 @@ const RecipeFoodPage = ({ match: { params: { id } } }) => {
             .entries(recipeDetails)
             .filter(([key, value]) => key.includes('Measure') && value !== '')));
       setPage('foodDetails');
+      setIngredientsInProgress({ ingredientList, measureList });
       setIngredient(ingredientList);
       setMeasure(measureList);
     });
@@ -36,7 +37,7 @@ const RecipeFoodPage = ({ match: { params: { id } } }) => {
     <div>
       <RecipeDetails
         ingredients={ ingredients }
-        id={ id }
+        idRecipe={ id }
         measures={ measures }
         recomendeds={ recomendedDrinks }
       />
