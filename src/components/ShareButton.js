@@ -1,17 +1,22 @@
 import React from 'react';
-import copy from 'clipboard-copy';
+import copyToClipboard from 'clipboard-copy';
 import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
 
 function ShareButton({ testid, url }) {
-  const copyToClipboard = () => {
-    copy(url);
+  const handleOnClick = () => {
+    copyToClipboard(url);
     alert('Link copied!');
   };
+  // const copyToClipboard = () => {
+  //   const successPromise = copy(url);
+  //   if (successPromise) {
+  //   }
+  // };
   return (
     <input
       data-testid={ testid }
-      onClick={ copyToClipboard }
+      onClick={ handleOnClick }
       type="image"
       src={ shareIcon }
       alt="Share icon"

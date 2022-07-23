@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useRecipeApp } from '../context/RecipeAppProvider';
-import FavoriteButton from './FavoriteButton';
 
 const RecipeCard = ({ page }) => {
   const { foods, drinks, location: { pathname } } = useRecipeApp();
@@ -34,7 +33,6 @@ const RecipeCard = ({ page }) => {
             />
             <div data-testid={ `${index}-card-name` }>{ food.strMeal }</div>
           </Link>
-          <FavoriteButton testid='' objRecipe={food} typeRecipes='food'/>
         </div>
       ))}
       { page === 'drinks' && filterRecipes(drinks)?.map((drink, index) => (
@@ -48,7 +46,6 @@ const RecipeCard = ({ page }) => {
               />
               <div data-testid={ `${index}-card-name` }>{ drink.strDrink }</div>
             </Link>
-            <FavoriteButton testid='' objRecipe={drink} typeRecipes='drink'/>
           </div>
         ))}
     </div>

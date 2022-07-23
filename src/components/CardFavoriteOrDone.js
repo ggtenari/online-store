@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import FavoriteButton from './FavoriteButton';
 import ShareButton from './ShareButton';
 
@@ -16,7 +15,7 @@ function CardFavoriteOrDone({ recipe, index }) {
   if (type === 'food') {
     return (
       <div>
-        <Link to={ `/foods/${id}` }>
+        <a href={ `/foods/${id}` }>
           <img
             data-testid={ `${index}-horizontal-image` }
             style={ styleImg }
@@ -24,7 +23,7 @@ function CardFavoriteOrDone({ recipe, index }) {
             alt="recipe"
           />
           <span data-testid={ `${index}-horizontal-name` }>{name}</span>
-        </Link>
+        </a>
 
         <span
           style={ styleText }
@@ -43,7 +42,7 @@ function CardFavoriteOrDone({ recipe, index }) {
   }
   return (
     <div>
-      <Link to={ `/foods/${id}` }>
+      <a href={ `/drinks/${id}` }>
         <img
           data-testid={ `${index}-horizontal-image` }
           style={ styleImg }
@@ -51,7 +50,7 @@ function CardFavoriteOrDone({ recipe, index }) {
           alt="recipe"
         />
         <span data-testid={ `${index}-horizontal-name` }>{name}</span>
-      </Link>
+      </a>
       <span
         style={ styleText }
         data-testid={ `${index}-horizontal-top-text` }
