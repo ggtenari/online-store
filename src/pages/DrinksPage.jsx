@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Redirect } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import RecipeCard from '../components/RecipesCard';
@@ -8,6 +7,7 @@ import fetchDrinks from '../helpers/fetchDrinks';
 
 function DrinksPage() {
   const { setDrinks, setPage } = useRecipeApp();
+  const [toggle, setToggle] = useState('');
   const [categories, setCategories] = useState();
   const maxIndexDrinks = 12;
   const maxIndexCategories = 5;
@@ -21,20 +21,28 @@ function DrinksPage() {
     setPage('drinks');
   }, []);
 
-  const handleCategorie = (name) => {
-    fetchDrinks(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${name}`).then((response) => setDrinks(response.drinks));
-  };
   const handleOnClickAll = async () => {
     fetchDrinks('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=').then((response) => setDrinks(response.drinks.slice(0, maxIndexDrinks)));
+    setToggle('');
+  };
+  const handleCategorie = (name) => {
+    if (toggle === name) {
+      console.log('if');
+      handleOnClickAll();
+    } else {
+      console.log('else');
+      setToggle(name);
+      fetchDrinks(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${name}`).then((response) => setDrinks(response.drinks));
+    }
   };
 
   return (
     <div>
       <h1>PAGINA DO DRINKSPAGE</h1>
       <Header title="Drinks" searchIconOnOff />
-      {categories && categories?.map((categorie) => (
+      {categories && categories.map((categorie) => (
         <button
-          data-testid={`${categorie.strCategory}-category-filter`}
+          data-testid={ `${categorie.strCategory}-category-filter` }
           type="button"
           name={ categorie.strCategory }
           key={ categorie.strCategory }
