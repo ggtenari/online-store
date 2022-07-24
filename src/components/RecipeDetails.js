@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import { useRecipeApp } from '../context/RecipeAppProvider';
 
 const RecipeDetails = (props) => {
   const { ingredients, measures, recomendeds, idRecipe } = props;
-  const localStorageObject = {};
+  // const localStorageObject = {};
   const [redirect, setRedirect] = useState({ goLink: false, link: '' });
   const { details, page } = useRecipeApp();
 
