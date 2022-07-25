@@ -5,16 +5,24 @@ import ContextRecipeApp from './ContextRecipeApp';
 
 function RecipeAppProvider({ children }) {
   const [state, setState] = useState([]);
+  const [foodCheck, setFoodCheck] = useState({});
+  const [ingredientsInProgress, setIngredientsInProgress] = useState([]);
   const [searchInput, setSearchInput] = useState('');
   const [valueInputRadio, setValueInputRadio] = useState('ingredientChecked');
   const [url, setUrl] = useState({ foods: '', drinks: '' });
   const [foods, setFoods] = useState([]);
   const [drinks, setDrinks] = useState([]);
+  const [page, setPage] = useState('foods');
+  const [details, setDetails] = useState();
   const location = useLocation();
 
   const history = useHistory();
 
   const contextValue = {
+    foodCheck,
+    setFoodCheck,
+    ingredientsInProgress,
+    setIngredientsInProgress,
     state,
     setState,
     searchInput,
@@ -27,8 +35,12 @@ function RecipeAppProvider({ children }) {
     setFoods,
     drinks,
     setDrinks,
+    page,
+    setPage,
     location,
     history,
+    details,
+    setDetails,
   };
 
   // useEffect(() => {

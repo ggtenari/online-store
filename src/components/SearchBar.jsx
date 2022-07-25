@@ -1,6 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Redirect } from 'react-router-dom';
 import { useRecipeApp } from '../context/RecipeAppProvider';
-import fetchAPI from '../helpers/fetchAPI';
+import fetchFoods from '../helpers/fetchfoods';
+import fetchDrinks from '../helpers/fetchDrinks';
 
 const SearchBar = () => {
   const { searchInput,
@@ -9,12 +11,15 @@ const SearchBar = () => {
     setValueInputRadio,
     url,
     setUrl,
-    foods,
     setFoods,
-    drinks,
     setDrinks,
-    location: { pathname },
-    history } = useRecipeApp();
+    page,
+  } = useRecipeApp();
+
+  const [redirect, setRedirect] = useState({
+    goLink: false,
+    link: '',
+  });
 
   useEffect(() => {
     if (valueInputRadio === 'ingredientChecked') {
@@ -39,25 +44,35 @@ const SearchBar = () => {
   }, [valueInputRadio, searchInput]);
 
   const onClick = async () => {
-    if (pathname === '/foods') {
-      fetchAPI(url.foods).then((response) => setFoods(response.meals));
-    } if (pathname === '/drinks') {
-      console.log(url.drinks);
-      fetchAPI(url.drinks).then((response) => setDrinks(response.drinks));
+    if (page === 'foods') {
+      fetchFoods(url.foods).then((response) => {
+        if (response.meals === null) {
+          alert('Sorry, we haven\'t found any recipes for these filters.');
+        } else if (response.meals.length === 1) {
+          setFoods(response.meals);
+          setRedirect({
+            goLink: true,
+            link: `/foods/${response.meals[0].idMeal}`,
+          });
+        } else {
+          setFoods(response.meals);
+        }
+      });
     }
-    // console.log(recipesDrinks);
-    // if (recipesFoods) {
-    //   setFoods(recipesFoods.meals);
-    // }
-    // if (recipesDrinks) {
-    //   setDrinks(recipesDrinks.drinks);
-    // }
-
-    if (foods && pathname === '/foods' && foods.length === 1) {
-      history.push(`/foods/${foods[0].idMeal}`);
-    }
-    if (drinks && pathname === '/drinks' && drinks.length === 1) {
-      history.push(`/drinks/${drinks[0].idDrink}`);
+    if (page === 'drinks') {
+      fetchDrinks(url.drinks).then((response) => {
+        if (!response || response.drinks === null) {
+          alert('Sorry, we haven\'t found any recipes for these filters.');
+        } else if (response.drinks.length === 1) {
+          setDrinks(response.drinks);
+          setRedirect({
+            goLink: true,
+            link: `/drinks/${response.drinks[0].idDrink}`,
+          });
+        } else {
+          setDrinks(response.drinks);
+        }
+      });
     }
   };
 
@@ -118,6 +133,7 @@ const SearchBar = () => {
         >
           Buscar
         </button>
+        { redirect.goLink && <Redirect to={ redirect.link } />}
       </div>
 
     </div>
