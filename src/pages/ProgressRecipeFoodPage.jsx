@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import RecipeDetails from '../components/RecipeDetails';
 import { useRecipeApp } from '../context/RecipeAppProvider';
 import fetchDetailsFood from '../helpers/fetchDetailsFood';
@@ -11,25 +12,51 @@ const ProgressRecipeFoodPage = ({ match: { params: { id } } }) => {
     setDetails, setIngredientsInProgress,
   } = useRecipeApp();
 
-  const localStorageObject = {};
-  const [styleObject, setStyleObject] = useState({});
+  let receitasEmProgresso = [];
+
+  if (localStorage.getItem('inProgressRecipes')) {
+    receitasEmProgresso = JSON
+      .parse(localStorage.getItem('inProgressRecipes'))[id] ? JSON.parse(localStorage
+        .getItem('inProgressRecipes'))[id]
+      : [];
+  }
+
+  const [localStorageArray,
+    setLocalStorageArray] = useState(receitasEmProgresso);
+
+  const [finished, setFinished] = useState(false);
 
   const setChecked = (value) => {
-    const prevValue = JSON.parse(localStorage.getItem(`${details.strMeal}InProgress`));
-    if (prevValue && foodCheck) {
-      prevValue[value] = !foodCheck[value];
+    if (localStorageArray.includes(value)) {
+      const prevLocalStorage = JSON.parse(localStorage.getItem('inProgressRecipes'))
+      || { [id]: [] };
+      setLocalStorageArray(localStorageArray
+        .filter((ingredient) => ingredient !== value));
+      prevLocalStorage[id] = localStorageArray
+        .filter((ingredient) => ingredient !== value);
+      localStorage.setItem('inProgressRecipes', JSON.stringify(prevLocalStorage));
+    } else {
+      const prevLocalStorage = JSON.parse(localStorage.getItem('inProgressRecipes'))
+      || { [id]: [] };
+      prevLocalStorage[id] = [...localStorageArray, value];
+      setLocalStorageArray([...localStorageArray, value]);
+      localStorage.setItem('inProgressRecipes', JSON.stringify(prevLocalStorage));
     }
-    localStorage.setItem((`${details.strMeal}InProgress`), JSON
-      .stringify(prevValue));
-    setFoodCheck((prev) => ({
-      ...prev,
-      [value]: !prev[value],
-    }));
   };
 
+  const checkChecked = (value) => (!!localStorageArray.includes(value));
   const style = {
     width: '150px',
     heigth: '150px',
+  };
+
+  const finishRecipe = () => {
+    const local = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    delete local[id];
+    localStorage.setItem('inProgressRecipes', JSON.stringify(local));
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    doneRecipes.push(id);
+    localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
   };
 
   useEffect(() => {
@@ -48,28 +75,43 @@ const ProgressRecipeFoodPage = ({ match: { params: { id } } }) => {
             .filter(([key, value]) => key.includes('Measure') && value !== '')));
       setIngredientsInProgress({ ingredientList, measureList });
     });
-  }, [id]);
+    if (!localStorage.getItem('doneRecipes')) {
+      localStorage.setItem('doneRecipes', JSON.stringify([]));
+    }
+  }, []);
 
   useEffect(() => {
-    if (details && localStorage.getItem(`${details.strMeal}InProgress`)) {
-      const objLocal = JSON.parse(localStorage.getItem(`${details.strMeal}InProgress`));
-      setFoodCheck(objLocal);
-    } else if (ingredientsInProgress.ingredientList) {
-      ingredientsInProgress.ingredientList.forEach((ingrediente) => {
-        localStorageObject[ingrediente] = false;
-        setStyleObject({ ...styleObject, [ingrediente]: {} });
-        setFoodCheck((prev) => ({
-          ...prev,
-          [ingrediente]: false,
-        }));
-      });
-      localStorage.setItem((`${details.strMeal}InProgress`), JSON
-        .stringify(localStorageObject));
+    if (ingredientsInProgress.ingredientList) {
+      if (ingredientsInProgress
+        .ingredientList.length === localStorageArray.length) {
+        setFinished(true);
+      } else {
+        setFinished(false);
+      }
     }
-  }, [details]);
-  useEffect(() => {
-    setPage('foodInProgress');
-  }, []);
+  }, [localStorageArray]);
+
+  // useEffect(() => {
+  //   fetchDetailsFood(id).then((response) => {
+  //     const recipeDetails = response.meals[0];
+  //     setDetails(recipeDetails);
+  //     const ingredientList = Object
+  //       .values(Object
+  //         .fromEntries(Object
+  //           .entries(recipeDetails)
+  //           .filter(([key, value]) => key.includes('Ingredient') && value !== '')));
+  //     const measureList = Object
+  //       .values(Object
+  //         .fromEntries(Object
+  //           .entries(recipeDetails)
+  //           .filter(([key, value]) => key.includes('Measure') && value !== '')));
+  //     console.log('foi');
+  //     setIngredientsInProgress({ ingredientList, measureList });
+  //   });
+  // }, [id]);
+  // useEffect(() => {
+  //   setPage('foodInProgress');
+  // }, []);
 
   return (
     <div>
@@ -91,7 +133,7 @@ const ProgressRecipeFoodPage = ({ match: { params: { id } } }) => {
                 <div>
                   {
                     ingredientsInProgress.ingredientList.map((ingrediente, index) => {
-                      if (foodCheck && ingrediente !== null) {
+                      if (ingrediente !== null) {
                         return (
 
                           <div key={ index }>
@@ -99,7 +141,7 @@ const ProgressRecipeFoodPage = ({ match: { params: { id } } }) => {
                               data-testid={ `${index}-ingredient-step` }
                               htmlFor={ ingrediente }
                             >
-                              { foodCheck[ingrediente]
+                              { checkChecked(ingrediente)
                                 ? (
                                   <s>
                                     {(
@@ -111,10 +153,10 @@ const ProgressRecipeFoodPage = ({ match: { params: { id } } }) => {
                                   .measureList[index]}`}
                               <input
                                 type="checkbox"
-                                checked={ foodCheck[ingrediente] }
+                                checked={ checkChecked(ingrediente) }
                                 value={ ingrediente }
                                 id={ ingrediente }
-                                onChange={ (event) => setChecked(event.target.value) }
+                                onChange={ () => setChecked(ingrediente) }
 
                               />
                             </label>
@@ -124,9 +166,16 @@ const ProgressRecipeFoodPage = ({ match: { params: { id } } }) => {
                       }
                     })
                   }
-                  <button type="button" data-testid="finish-recipe-btn">
-                    finalizar
-                  </button>
+                  <Link to="/done-recipes">
+                    <button
+                      type="button"
+                      data-testid="finish-recipe-btn"
+                      disabled={ !finished }
+                      onClick={ finishRecipe }
+                    >
+                      finalizar
+                    </button>
+                  </Link>
                 </div>
               ) }
 

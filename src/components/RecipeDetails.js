@@ -1,12 +1,29 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { Redirect, Link } from 'react-router-dom';
 import { useRecipeApp } from '../context/RecipeAppProvider';
 
 const RecipeDetails = (props) => {
   const { ingredients, measures, recomendeds, idRecipe } = props;
-  const localStorageObject = {};
   const [redirect, setRedirect] = useState({ goLink: false, link: '' });
+  const [finished, setFinished] = useState('');
+  const [started, setStarted] = useState(false);
   const { details, page } = useRecipeApp();
+  useEffect(() => {
+    if (localStorage.getItem('inProgressRecipes')
+    && JSON.parse(localStorage.getItem('inProgressRecipes'))[idRecipe]) {
+      setStarted(true);
+    } else {
+      setStarted(false);
+    }
+    if (localStorage.getItem('doneRecipes')) {
+      const terminou = !!JSON
+        .parse(localStorage.getItem('doneRecipes')).includes(idRecipe);
+      setFinished(terminou);
+      console.log(!!JSON
+        .parse(localStorage.getItem('doneRecipes')).includes(idRecipe));
+    }
+  }, []);
 
   const styleCarousel = {
     width: '360px',
@@ -39,11 +56,6 @@ const RecipeDetails = (props) => {
     if (recipes && recipes.length > maxCard) cards = recipes.slice(0, maxCard);
     return cards;
   };
-
-  const handleStartRecipe = () => {
-    console.log('handleStartRecipe');
-  };
-  handleStartRecipe();
 
   return (
     <div>
@@ -111,15 +123,16 @@ const RecipeDetails = (props) => {
                   ))}
                 </div>
               </div>
-              <button
-                type="button"
-                onClick={ () => setLink('foods') }
-                className="startRecipe"
-                data-testid="start-recipe-btn"
-              >
-                Start Recipe
+              {!finished && (
+                <button
+                  type="button"
+                  onClick={ () => setLink('foods') }
+                  className="startRecipe"
+                  data-testid="start-recipe-btn"
+                >
+                  {started ? 'Continue Recipe' : 'Start Recipe'}
 
-              </button>
+                </button>)}
             </div>
           )
       }
@@ -178,15 +191,23 @@ const RecipeDetails = (props) => {
                       ))}
                   </div>
                 </div>
-                <button
-                  type="button"
-                  onClick={ () => setLink('drinks') }
-                  className="startRecipe"
-                  data-testid="start-recipe-btn"
-                >
-                  Start Recipe
+                {() => {
+                  if (finished === false) {
+                    console.log(a);
+                    return (
+                      <button
+                        type="button"
+                        onClick={ () => setLink('drinks') }
+                        className="startRecipe"
+                        data-testid="start-recipe-btn"
+                      >
+                        Start Recipe
 
-                </button>
+                      </button>);
+                  }
+
+                  console.log('b');
+                } }
               </div>
             )
       }
