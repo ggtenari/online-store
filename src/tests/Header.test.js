@@ -1,10 +1,11 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import renderWithRouter from '../helpers/renderWithRouter';
+import renderWithRouter from '..helpers/renderWithRouter';
 import App from '../App';
 import RecipeAppProvider from '../context/RecipeAppProvider';
 
+<<<<<<< HEAD
 describe('7 - Implemente o header de acordo com a necessidade de cada tela', () => {
   it('testa elementos', () => {
     const { history } = renderWithRouter(<RecipeAppProvider><App /></RecipeAppProvider>);
@@ -31,61 +32,79 @@ describe('7 - Implemente o header de acordo com a necessidade de cada tela', () 
   })
 
   it('testa rota com render', () => {
+=======
+describe('Testando o componente Header', () => {
+  it('Verificando os elementos na tela', () => {
+    const { history } = renderWithRouter(<RecipeAppProvider><App /></RecipeAppProvider>);
+
+    const profileIcon = screen.getByTestId('profile-top-btn');
+    const pageTitle = screen.getByTestId('page-title');
+    const searchIcon = screen.getByTestId('search-top-btn');
+
+    expect(profileIcon).toBeInTheDocument();
+    expect(pageTitle).toBeInTheDocument();
+    expect(searchIcon).toBeInTheDocument();
+  });
+
+  it('Verificando se a barra de pesquisa aparece ao clicar no botão', () => {
+>>>>>>> 9ddfb37acb27263f24524ec8dba6a66eb68e3dee
     const { history } = renderWithRouter(<RecipeAppProvider><App /></RecipeAppProvider>);
 
     history.push('/foods');
-    
-    const titleIconInput = screen.getByTestId('profile-top-btn');
-    const searchIconInput = screen.getByTestId('search-top-btn');
-    const titleInput = screen.getByTestId('page-title');
 
-    expect(titleIconInput).toBeInTheDocument()
-    expect(searchIconInput).toBeInTheDocument()
-    expect(titleInput).toBeInTheDocument()
+    const dataTestIdSearch = 'search-input';
 
+    const searchIcon = screen.getByTestId('search-top-btn');
+
+    expect(screen.queryByTestId(dataTestIdSearch)).not.toBeInTheDocument();
+
+    userEvent.click(searchIcon);
+
+    expect(screen.getByTestId(dataTestIdSearch)).toBeInTheDocument();
+
+    userEvent.click(searchIcon);
+
+    expect(screen.queryByTestId(dataTestIdSearch)).not.toBeInTheDocument();
   });
 });
 
+<<<<<<< HEAD
   it('o header renderiza sem o search', () => {
   renderWithRouter(<App />);
   
   const titleIconInput = screen.getByTestId('profile-top-btn')
   const searchIconInput = screen.getByTestId('search-top-btn')
   const titleInput = screen.getByTestId('page-title')
+=======
+describe('7 - Implemente o header de acordo com a necessidade de cada tela', () => {
+  it('testa elementos', () => {
+    const { history } = renderWithRouter(<RecipeAppProvider><App /></RecipeAppProvider>);
+    history.push('/foods');
+
+    const titleIconInput = screen.getByTestId('profile-top-btn');
+    const searchIconInput = screen.getByTestId('search-top-btn');
+    const titleInput = screen.getByTestId('page-title');
+>>>>>>> 9ddfb37acb27263f24524ec8dba6a66eb68e3dee
 
     expect(titleIconInput).toBeInTheDocument()
-    expect(searchIconInput).not.toBeInTheDocument()
+    expect(searchIconInput).toBeInTheDocument()
     expect(titleInput).toBeInTheDocument()
+<<<<<<< HEAD
   });
+=======
+>>>>>>> 9ddfb37acb27263f24524ec8dba6a66eb68e3dee
 
-describe('9 - Desenvolva o botão de busca que, ao ser clicado, a barra de busca deve aparecer. O mesmo serve para escondê-la', () => {
-  it('Verificando se a barra de pesquisa aparece ao clicar no botão', () => {
-    const { history } = renderWithRouter(<App />);
+    userEvent.click(searchIconInput)
 
-    history.push('/foods');
-    const textSearch = screen.getByTestId('search-input');
-    const searchIconInput = screen.getByTestId('search-top-btn')
-    expect(textSearch).not.toBeInTheDocument();
+    const searchInput = screen.getByTestId('search-input');
 
-    userEvent.click(searchIconInput);
-    expect(textSearch).toBeInTheDocument();
-    userEvent.click(searchIconInput);
-    expect(textSearch).not.toBeInTheDocument();
+    expect(searchInput).toBeInTheDocument()
+
+    userEvent.click(searchIconInput)
+
+    expect(searchInput).not.toBeInTheDocument()
   });
-  
-  it('Verifica os inputs radio', () => {
-    const { history } = renderWithRouter(<App />);
-    history.push('/foods');
-
-    const searchIconInput = screen.getByTestId('search-top-btn');
-    userEvent.click(searchIcon);
-
-    expect(screen.queryByTestId('search-input')).toBeInTheDocument();
-    expect(screen.getByTestId('ingredient-search-radio')).toBeInTheDocument();
-    expect(screen.getByTestId('name-search-radio')).toBeInTheDocument();
-    expect(screen.getByTestId('first-letter-search-radio')).toBeInTheDocument();
-    expect(screen.getByTestId('exec-search-btn')).toBeInTheDocument();
-
-    userEvent.click(searchIconInput);
-    expect(screen.queryByTestId('search-input')).not.toBeInTheDocument();
-  });
+<<<<<<< HEAD
+=======
+});
+>>>>>>> 9ddfb37acb27263f24524ec8dba6a66eb68e3dee

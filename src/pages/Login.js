@@ -56,6 +56,16 @@ const LoginPage = () => {
       >
         Enter
       </button>
+<<<<<<< HEAD
+=======
+      <button
+        type="button"
+        onClick={ autoLogin }
+        data-testid="autoLogin"
+      >
+        Auto Login
+      </button>
+>>>>>>> 548ffc3aac9f8495e316723614d00e99ef13b1c2
     </div>
   );
 };
