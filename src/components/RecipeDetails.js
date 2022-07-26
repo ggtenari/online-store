@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect, Link } from 'react-router-dom';
 import { useRecipeApp } from '../context/RecipeAppProvider';
+import FavoriteButton from './FavoriteButton';
+import ShareButton from './ShareButton';
 
 const RecipeDetails = (props) => {
   const { ingredients, measures, recomendeds, idRecipe } = props;
@@ -90,6 +92,12 @@ const RecipeDetails = (props) => {
                 <h3 data-testid="recipe-title">{details.strMeal}</h3>
                 <h3 data-testid="recipe-category">{details.strCategory}</h3>
               </div>
+              <FavoriteButton
+                testid="favorite-btn"
+                objRecipe={ details }
+                typeRecipes="food"
+              />
+              <ShareButton testid="share-btn" url={ `http://localhost:3000/foods/${idRecipe}` } />
               { ingredients
               && (
                 <div>
@@ -164,6 +172,13 @@ const RecipeDetails = (props) => {
                   <h3 data-testid="recipe-title">{details.strDrink}</h3>
                   <h3 data-testid="recipe-category">{details.strAlcoholic }</h3>
                 </div>
+                <FavoriteButton
+                  testid="favorite-btn"
+                  objRecipe={ details }
+                  typeRecipes="drink"
+                />
+                <ShareButton testid="share-btn" url={ `http://localhost:3000/drinks/${idRecipe}` } />
+
                 { ingredients
                 && (
                   <div>

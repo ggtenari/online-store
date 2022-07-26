@@ -10,6 +10,8 @@ function FavoriteButton({ testid, objRecipe, typeRecipes }) {
 
   let infoRecipe;
 
+  useEffect(() => { console.log(infoRecipe); }, [infoRecipe]);
+
   if (typeRecipes === 'food') {
     infoRecipe = {
       id: objRecipe.idMeal,

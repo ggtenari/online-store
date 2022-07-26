@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import fetchDetailsDrink from '../helpers/fetchDetailsDrink';
 import { useRecipeApp } from '../context/RecipeAppProvider';
+import FavoriteButton from '../components/FavoriteButton';
+import ShareButton from '../components/ShareButton';
 
 const ProgressRecipeDrinkPage = ({ match: { params: { id } } }) => {
   const { setDetails, details } = useRecipeApp();
@@ -29,7 +31,9 @@ const ProgressRecipeDrinkPage = ({ match: { params: { id } } }) => {
 
   useEffect(() => {
     if (ingredients.ingredients) {
-      if (ingredients.ingredients.length === localStorageArray.length) {
+      const newIngredients = ingredients.ingredients
+        .filter((ingrediente) => ingrediente !== '');
+      if (newIngredients.length === localStorageArray.length) {
         setFinished(true);
       } else {
         setFinished(false);
@@ -107,6 +111,12 @@ const ProgressRecipeDrinkPage = ({ match: { params: { id } } }) => {
                   />
                   <h3 data-testid="recipe-title">{details.strDrink}</h3>
                   <h3 data-testid="recipe-category">{details.strAlcoholic }</h3>
+                  <FavoriteButton
+                    testid="favorite-btn"
+                    objRecipe={ details }
+                    typeRecipes="drink"
+                  />
+                  <ShareButton testid="share-btn" url={ `http://localhost:3000/drinks/${id}` } />
                 </div>
                 { ingredients.ingredients
                 && (

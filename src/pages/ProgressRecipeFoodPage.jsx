@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useRecipeApp } from '../context/RecipeAppProvider';
 import fetchDetailsFood from '../helpers/fetchDetailsFood';
+import FavoriteButton from '../components/FavoriteButton';
+import ShareButton from '../components/ShareButton';
 
 const ProgressRecipeFoodPage = ({ match: { params: { id } } }) => {
   const { details,
@@ -85,8 +87,9 @@ const ProgressRecipeFoodPage = ({ match: { params: { id } } }) => {
 
   useEffect(() => {
     if (ingredientsInProgress.ingredientList) {
-      if (ingredientsInProgress
-        .ingredientList.length === localStorageArray.length) {
+      const newIngredientList = ingredientsInProgress.ingredientList
+        .filter((ingredient) => ingredient !== null);
+      if (newIngredientList.length === localStorageArray.length) {
         setFinished(true);
       } else {
         setFinished(false);
@@ -108,6 +111,12 @@ const ProgressRecipeFoodPage = ({ match: { params: { id } } }) => {
               />
               <h3 data-testid="recipe-title">{details.strMeal}</h3>
               <h3 data-testid="recipe-category">{details.strCategory}</h3>
+              <FavoriteButton
+                testid="favorite-btn"
+                objRecipe={ details }
+                typeRecipes="food"
+              />
+              <ShareButton testid="share-btn" url={ `http://localhost:3000/foods/${id}` } />
             </div>
             { ingredientsInProgress.ingredientList
               && (
