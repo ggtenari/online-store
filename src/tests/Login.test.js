@@ -12,9 +12,14 @@ describe('testando o componente Login', () => {
     const enterButton = screen.getByRole('button', {
       name: /enter/i
     })
+    const autoLoginButton = screen.getByRole('button', {
+      name: /Auto Login/i
+    })
+
     expect(emailInput).toBeInTheDocument()
     expect(passwordInput).toBeInTheDocument()
     expect(enterButton).toBeInTheDocument()
+    expect(autoLoginButton).toBeInTheDocument()
   })
   it('testa se o botao esta desabilitado caso seja digitado email ou senha invalidos', async () => {
     const {history} = renderWithRouter(<App />)
@@ -29,5 +34,16 @@ describe('testando o componente Login', () => {
     expect(enterButton).toHaveProperty('disabled', false)
     userEvent.click(enterButton)
     await waitFor(() => expect(screen.getByText(/PAGINA DO FOODSPAGE/i)).toBeInTheDocument())
+  })
+  it('testa o botao autoLogin', async () => {
+    const {history} = renderWithRouter(<App />)
+    const autoLoginButton = screen.getByRole('button', {
+      name: /Auto Login/i
+    })
+    userEvent.click(autoLoginButton);
+    localStorage.getItem('user', JSON.stringify({ email: 'user@user.com' }));
+    localStorage.getItem('mealsToken', '1');
+    localStorage.getItem('cocktailsToken', '1');
+    expect(history.location.pathname).toBe('/foods');
   })
 })

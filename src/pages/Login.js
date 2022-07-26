@@ -62,7 +62,13 @@ const LoginPage = () => {
       >
         Enter
       </button>
-      <button type="button" onClick={ autoLogin }>Auto Login</button>
+      <button
+        type="button"
+        onClick={ autoLogin }
+        data-testid="autoLogin"
+      >
+        Auto Login
+      </button>
     </div>
   );
 };
