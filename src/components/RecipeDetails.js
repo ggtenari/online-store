@@ -1,58 +1,58 @@
 import React from 'react';
-// import React, { useState } from 'react';
+import React, { useState } from 'react';
 
-// import { Redirect, Link } from 'react-router-dom';
-// import { useRecipeApp } from '../context/RecipeAppProvider';
+import { Redirect, Link } from 'react-router-dom';
+import { useRecipeApp } from '../context/RecipeAppProvider';
 const RecipeDetails = () =>
-// const RecipeDetails = (props) => {
-// const { ingredients, measures, recomendeds, idRecipe } = props;
-// // const localStorageObject = {};
-// const [redirect, setRedirect] = useState({ goLink: false, link: '' });
-// const { details, page } = useRecipeApp();
+const RecipeDetails = (props) => {
+const { ingredients, measures, recomendeds, idRecipe } = props;
+// const localStorageObject = {};
+const [redirect, setRedirect] = useState({ goLink: false, link: '' });
+const { details, page } = useRecipeApp();
 
-// const styleCarousel = {
-//   width: '360px',
-//   heigth: '180px',
-//   display: 'flex',
-//   overflow: 'auto',
-// };
-// styleCarousel['white-space'] = 'nowrap';
+const styleCarousel = {
+  width: '360px',
+  heigth: '180px',
+  display: 'flex',
+  overflow: 'auto',
+};
+styleCarousel['white-space'] = 'nowrap';
 
-// const styleItem = {
-//   padding: '20px',
-//   width: '60%',
-//   heigth: '180px',
-//   float: 'left',
-// };
+const styleItem = {
+  padding: '20px',
+  width: '60%',
+  heigth: '180px',
+  float: 'left',
+};
 
-// const style = {
-//   width: '150px',
-//   heigth: '150px',
-// };
+const style = {
+  width: '150px',
+  heigth: '150px',
+};
 
-// const setLink = (pagina) => {
-//   console.log(idRecipe);
-//   setRedirect({ goLink: true, link: `/${pagina}/${idRecipe}/in-progress` });
-// };
+const setLink = (pagina) => {
+  console.log(idRecipe);
+  setRedirect({ goLink: true, link: `/${pagina}/${idRecipe}/in-progress` });
+};
 
-// const filterRecipes = (recipes) => {
-//   const maxCard = 6;
-//   let cards = recipes;
-//   if (recipes && recipes.length > maxCard) cards = recipes.slice(0, maxCard);
-//   return cards;
-// };
+const filterRecipes = (recipes) => {
+  const maxCard = 6;
+  let cards = recipes;
+  if (recipes && recipes.length > maxCard) cards = recipes.slice(0, maxCard);
+  return cards;
+};
 
-// const handleStartRecipe = () => {
-//   console.log('handleStartRecipe');
-// };
-// handleStartRecipe();
+const handleStartRecipe = () => {
+  console.log('handleStartRecipe');
+};
+handleStartRecipe();
 
   (
     <div>
       <div>
         DETALHES DA RECEITA
       </div>
-      {/* {
+      {
         page === 'foodDetails'
         && details
           && (
@@ -188,9 +188,10 @@ const RecipeDetails = () =>
                 >
                   Start Recipe
 
-                </button> */}
-    </div>
-  );
+                </button>
+      </div>
+  )}
+      
 { /* {
         page === 'foodInProgress'
         && details && (
@@ -235,17 +236,17 @@ const RecipeDetails = () =>
             <p data-testid="instructions">{details.strInstructions}</p>
           </div>
         )
-      } */ }
-//       {redirect.goLink && <Redirect to={ redirect.link } />}
-//     </div>
-//   );
-// };
+      // } */ }
+      {redirect.goLink && <Redirect to={ redirect.link } />}
+    </div>
+  );
+};
 
-// RecipeDetails.propTypes = {
-//   ingredients: PropTypes.arrayOf(PropTypes.string).isRequired,
-//   measures: PropTypes.arrayOf(PropTypes.string).isRequired,
-//   recomendeds: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
-//   idRecipe: PropTypes.string.isRequired,
-// };
+RecipeDetails.propTypes = {
+  ingredients: PropTypes.arrayOf(PropTypes.string).isRequired,
+  measures: PropTypes.arrayOf(PropTypes.string).isRequired,
+  recomendeds: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
+  idRecipe: PropTypes.string.isRequired,
+};
 
 export default RecipeDetails;
