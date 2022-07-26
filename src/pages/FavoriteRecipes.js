@@ -15,7 +15,7 @@ function FavoriteRecipes() {
     <div>
       <Header title="Favorite Recipes" searchIconOnOff={ false } />
       <ButtoonsFilterRecipes />
-      {favoriteList !== [] && favoriteList.map(
+      {favoriteList !== [] && favoriteList !== null && favoriteList.map(
         (recipe, index) => (<CardFavoriteOrDone
           key={ recipe.id }
           index={ index }

@@ -19,12 +19,6 @@ const LoginPage = () => {
       setIsButtonDisabled(true);
     }
   };
-  const autoLogin = () => {
-    localStorage.setItem('user', JSON.stringify({ email: 'user@user.com' }));
-    localStorage.setItem('mealsToken', '1');
-    localStorage.setItem('cocktailsToken', '1');
-    history.push('/foods');
-  };
   const saveEmailAndToken = () => {
     localStorage.setItem('user', JSON.stringify({ email }));
     localStorage.setItem('mealsToken', '1');
@@ -62,7 +56,6 @@ const LoginPage = () => {
       >
         Enter
       </button>
-      <button type="button" onClick={ autoLogin }>Auto Login</button>
     </div>
   );
 };
